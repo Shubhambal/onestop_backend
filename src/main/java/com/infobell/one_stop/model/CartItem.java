@@ -4,23 +4,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Represents an item in a cart.
  */
 @Entity
-public class CartItem { 
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartItemId;
     
-    private int cartId;
-    
-    private int productId; 
-    
     private int quantity;
 
+    // Define the many-to-one relationship with Product
+    @ManyToOne
+    @JoinColumn(name = "pid")
+    private Product product;
+
+    // Define the many-to-one relationship with Cart
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    // Constructors
+    
+    public CartItem() {
+        // Default constructor
+    }
+
+    // Getters and Setters
+    
     /**
      * Gets the cart item ID.
      *
@@ -40,42 +56,6 @@ public class CartItem {
     }
 
     /**
-     * Gets the cart ID associated with the cart item.
-     *
-     * @return The cart ID.
-     */
-    public int getCartId() {
-        return cartId;
-    }
-
-    /**
-     * Sets the cart ID associated with the cart item.
-     *
-     * @param cartId The cart ID to set.
-     */
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
-    /**
-     * Gets the product ID associated with the cart item.
-     *
-     * @return The product ID.
-     */
-    public int getProductId() {
-        return productId;
-    }
-
-    /**
-     * Sets the product ID associated with the cart item.
-     *
-     * @param productId The product ID to set.
-     */
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    /**
      * Gets the quantity of the cart item.
      *
      * @return The quantity.
@@ -91,5 +71,41 @@ public class CartItem {
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * Gets the product associated with the cart item.
+     *
+     * @return The product.
+     */
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
+     * Sets the product associated with the cart item.
+     *
+     * @param product The product to set.
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    /**
+     * Gets the cart associated with the cart item.
+     *
+     * @return The cart.
+     */
+    public Cart getCart() {
+        return cart;
+    }
+
+    /**
+     * Sets the cart associated with the cart item.
+     *
+     * @param cart The cart to set.
+     */
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

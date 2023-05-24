@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * Represents a customer in the system.
@@ -14,19 +16,23 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
-    
+
     private String username;
-    
     private String password;
-    
     private String firstName;
-    
     private String lastName;
-    
     private String emailId;
-    
     private String address;
-    
+    private String phoneNumber;
+
+    // Define the one-to-many relationship with Cart
+    @OneToMany(mappedBy = "customer")
+    private List<Cart> carts;
+
+
+
+    // Constructors, getters, and setters
+
     /**
      * Gets the customer ID.
      *
@@ -35,7 +41,7 @@ public class Customer {
     public int getCustomerId() {
         return customerId;
     }
-    
+
     /**
      * Sets the customer ID.
      *
@@ -44,7 +50,7 @@ public class Customer {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
-    
+
     /**
      * Gets the username.
      *
@@ -53,7 +59,7 @@ public class Customer {
     public String getUsername() {
         return username;
     }
-    
+
     /**
      * Sets the username.
      *
@@ -62,7 +68,7 @@ public class Customer {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     /**
      * Gets the password.
      *
@@ -71,7 +77,7 @@ public class Customer {
     public String getPassword() {
         return password;
     }
-    
+
     /**
      * Sets the password.
      *
@@ -80,7 +86,7 @@ public class Customer {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     /**
      * Gets the first name.
      *
@@ -89,7 +95,7 @@ public class Customer {
     public String getFirstName() {
         return firstName;
     }
-    
+
     /**
      * Sets the first name.
      *
@@ -98,7 +104,7 @@ public class Customer {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * Gets the last name.
      *
@@ -107,7 +113,7 @@ public class Customer {
     public String getLastName() {
         return lastName;
     }
-    
+
     /**
      * Sets the last name.
      *
@@ -116,7 +122,7 @@ public class Customer {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     /**
      * Gets the email ID.
      *
@@ -125,7 +131,7 @@ public class Customer {
     public String getEmailId() {
         return emailId;
     }
-    
+
     /**
      * Sets the email ID.
      *
@@ -134,7 +140,7 @@ public class Customer {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
-    
+
     /**
      * Gets the address.
      *
@@ -143,7 +149,7 @@ public class Customer {
     public String getAddress() {
         return address;
     }
-    
+
     /**
      * Sets the address.
      *
@@ -152,4 +158,46 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    /**
+     * Gets the phone number.
+     *
+     * @return The phone number.
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * Sets the phone number.
+     *
+     * @param phoneNumber The phone number to set.
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Gets the carts associated with the customer.
+     *
+     * @return The carts.
+     */
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    /**
+     * Sets the carts associated with the customer.
+     *
+     * @param carts The carts to set.
+     */
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
+    /**
+     * Gets the orders associated with the customer.
+     *
+     * @return The orders.
+     */
 }
