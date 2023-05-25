@@ -23,15 +23,9 @@ public class History {
     private float productPrice;
     private double totalCost;
     private Date orderDate;
-    private String orderStatus;
+    
 
-    public String getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    
 
 	/**
      * Gets the history ID.

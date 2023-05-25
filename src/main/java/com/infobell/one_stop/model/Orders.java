@@ -18,8 +18,16 @@ public class Orders {
     private Date orderDate;
     private double orderTotal;
     private int cartId;
+    private String orderStatus;
+    public String getOrderStatus() {
+		return orderStatus;
+	}
 
-    /**
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	/**
      * Gets the order ID.
      *
      * @return The order ID.
