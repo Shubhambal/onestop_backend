@@ -8,7 +8,6 @@ public class OneStopApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OneStopApplication.class, args);
-		System.out.println("Hello");
 	}
-
+	
 }

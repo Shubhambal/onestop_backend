@@ -13,7 +13,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customerId;
+    private Integer customerId;
     
     private String username;
     
