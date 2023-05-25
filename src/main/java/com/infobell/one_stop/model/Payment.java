@@ -1,9 +1,13 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * Represents a payment in the system.
@@ -12,11 +16,18 @@ import javax.persistence.Id;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
     private int paymentId;
 
+    @Column(name = "amount")
     private double amount;
+
+    @Column(name = "payment_type")
     private String paymentType;
-    private int orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders order;
 
     /**
      * Gets the payment ID.
@@ -73,20 +84,20 @@ public class Payment {
     }
 
     /**
-     * Gets the order ID associated with the payment.
+     * Gets the order associated with the payment.
      *
-     * @return The order ID.
+     * @return The order.
      */
-    public int getOrderId() {
-        return orderId;
+    public Orders getOrder() {
+        return order;
     }
 
     /**
-     * Sets the order ID associated with the payment.
+     * Sets the order associated with the payment.
      *
-     * @param orderId The order ID to set.
+     * @param order The order to set.
      */
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 }
