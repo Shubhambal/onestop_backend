@@ -1,10 +1,17 @@
 package com.infobell.one_stop.model;
 
 import java.sql.Date;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Represents an order in the system.
@@ -13,19 +20,29 @@ import javax.persistence.Id;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private int orderId;
 
+    @Column(name = "order_date")
     private Date orderDate;
-    private double orderTotal;
-    private int cartId;
-    private String orderStatus;
-    public String getOrderStatus() {
-		return orderStatus;
-	}
 
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    @Column(name = "order_total")
+    private double orderTotal;
+
+    @Column(name = "order_status")
+    private String orderStatus;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<History> history;
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<Payment> payment;
 
 	/**
      * Gets the order ID.
@@ -82,20 +99,74 @@ public class Orders {
     }
 
     /**
-     * Gets the cart ID associated with the order.
+     * Gets the order status.
      *
-     * @return The cart ID.
+     * @return The order status.
      */
-    public int getCartId() {
-        return cartId;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
     /**
-     * Sets the cart ID associated with the order.
+     * Sets the order status.
      *
-     * @param cartId The cart ID to set.
+     * @param orderStatus The order status to set.
      */
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    /**
+     * Gets the associated cart.
+     *
+     * @return The cart.
+     */
+    public Cart getCart() {
+        return cart;
+    }
+
+    /**
+     * Sets the associated cart.
+     *
+     * @param cart The cart to set.
+     */
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    /**
+     * Gets the history associated with the order.
+     *
+     * @return The history.
+     */
+    public List<History> getHistory() {
+        return history;
+    }
+
+    /**
+     * Sets the history associated with the order.
+     *
+     * @param history The history to set.
+     */
+    public void setHistory(List<History> history) {
+        this.history = history;
+    }
+
+    /**
+     * Gets the payment associated with the order.
+     *
+     * @return The payment.
+     */
+    public List<Payment> getPayment() {
+        return payment;
+    }
+
+    /**
+     * Sets the payment associated with the order.
+     *
+     * @param payment The payment to set.
+     */
+    public void setPayment(List<Payment> payment) {
+        this.payment = payment;
     }
 }
