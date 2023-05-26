@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.infobell.one_stop.dao.ProductRepository;
+import com.infobell.one_stop.exception.ResourceNotFoundException;
+import com.infobell.one_stop.repository.ProductRepository;
 import com.infobell.one_stop.model.Product;
 
 @Service
@@ -16,7 +17,6 @@ public class ProductServiceImplementation implements ProductService {
 	
 	@Override
 	public List<Product> getProduct() {
-		
 		return productrepository.findAll();
 	}
 
@@ -28,29 +28,30 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public Product getProductById(String id) {
-		
-		return productrepository.findByProductId(id);
+		Product product = productrepository.findByProductId(id);
+		if (product == null) {
+			throw new ResourceNotFoundException("Product", "id", id);
+		}
+		return product;
 	}
 
 	@Override
 	public Product updateProduct(Product product) {
-		if(productrepository.existsById(product.getMasterId())) {
+		if(productrepository.existsById(product.getProductId())) {
 			Product updatedProduct = productrepository.save(product);
 			return updatedProduct;
 		}
 		else {
-//			return "Product Not Found";
-			return null;
+			throw new ResourceNotFoundException("Product", "id", Integer.toString(product.getProductId()));
 		}
 	}
 
 	@Override
 	public String deleteById(int id) {
-		// TODO Auto-generated method stub
-		productrepository.deleteById(id);
-		return "Deleted.";
+		if (productrepository.existsById(id)) {
+			productrepository.deleteById(id);
+			return "Deleted.";
+		}
+		throw new ResourceNotFoundException("Product", "id", Integer.toString(id));
 	}
-
-	
 }
-
