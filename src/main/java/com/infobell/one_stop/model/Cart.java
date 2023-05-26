@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * Represents a cart in the system.
  */
 @Entity
+@Table(name = "cart")
 public class Cart {
 
     @Id
@@ -26,7 +28,7 @@ public class Cart {
     
     @Column(name = "total_cost")
     private double totalCost;
-    
+     
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

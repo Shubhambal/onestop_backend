@@ -9,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represents a history entry in the system.
  */
 @Entity
+@Table(name = "history")
 public class History {
 
     @Id
