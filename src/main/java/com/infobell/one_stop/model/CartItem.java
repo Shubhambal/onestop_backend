@@ -7,11 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represents a cart-items in the system.
  */
 @Entity
+@Table(name = "cart_item ")
 public class CartItem {
 
     @Id
