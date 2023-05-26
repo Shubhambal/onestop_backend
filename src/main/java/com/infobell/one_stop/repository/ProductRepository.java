@@ -1,4 +1,4 @@
-package com.infobell.one_stop.dao;
+package com.infobell.one_stop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
