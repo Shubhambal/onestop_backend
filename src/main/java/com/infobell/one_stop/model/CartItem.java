@@ -1,5 +1,6 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,35 +9,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
- * Represents an item in a cart.
+ * Represents a cart-items in the system.
  */
 @Entity
 public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_item_id")
     private int cartItemId;
-    
+
+    @Column(name = "quantity")
     private int quantity;
-
-    // Define the many-to-one relationship with Product
-    @ManyToOne
-    @JoinColumn(name = "pid")
-    private Product product;
-
-    // Define the many-to-one relationship with Cart
+    
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    // Constructors
-    
-    public CartItem() {
-        // Default constructor
-    }
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    // Getters and Setters
-    
     /**
      * Gets the cart item ID.
      *
@@ -53,6 +46,24 @@ public class CartItem {
      */
     public void setCartItemId(int cartItemId) {
         this.cartItemId = cartItemId;
+    }
+
+    /**
+     * Gets the cart associated with the cart item.
+     *
+     * @return The cart.
+     */
+    public Cart getCart() {
+        return cart;
+    }
+
+    /**
+     * Sets the cart associated with the cart item.
+     *
+     * @param cart The cart to set.
+     */
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     /**
@@ -89,23 +100,5 @@ public class CartItem {
      */
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    /**
-     * Gets the cart associated with the cart item.
-     *
-     * @return The cart.
-     */
-    public Cart getCart() {
-        return cart;
-    }
-
-    /**
-     * Sets the cart associated with the cart item.
-     *
-     * @param cart The cart to set.
-     */
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 }

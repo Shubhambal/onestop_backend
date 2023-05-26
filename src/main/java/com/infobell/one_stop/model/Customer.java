@@ -1,9 +1,11 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -15,23 +17,34 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
     private int customerId;
 
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email_id")
     private String emailId;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     // Define the one-to-many relationship with Cart
-    @OneToMany(mappedBy = "customer")
+    @OneToMany
+    @JoinColumn(name = "customer_id")
     private List<Cart> carts;
-
-
-
-    // Constructors, getters, and setters
 
     /**
      * Gets the customer ID.
@@ -195,9 +208,4 @@ public class Customer {
         this.carts = carts;
     }
 
-    /**
-     * Gets the orders associated with the customer.
-     *
-     * @return The orders.
-     */
 }

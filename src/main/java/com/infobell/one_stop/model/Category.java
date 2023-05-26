@@ -1,9 +1,13 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * Represents a category in the system.
@@ -13,12 +17,24 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
     private int categoryId;
-    
+
+    @Column(name = "category_img_path")
     private String categoryImgPath;
+    
+    @Column(name = "category_name")
     private String categoryName;
+    
+    @Column(name = "flag")
     private boolean flag;
+    
+    @Column(name = "parent_category_id")
     private int parentCategoryId;
+
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Product> products;
 
     /**
      * Gets the category ID.
@@ -109,4 +125,23 @@ public class Category {
     public void setParentCategoryId(int parentCategoryId) {
         this.parentCategoryId = parentCategoryId;
     }
+
+    /**
+     * Gets the products associated with the category.
+     *
+     * @return The products.
+     */
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    /**
+     * Sets the products associated with the category.
+     *
+     * @param products The products to set.
+     */
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
 }
