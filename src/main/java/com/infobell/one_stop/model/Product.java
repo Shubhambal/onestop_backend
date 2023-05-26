@@ -1,50 +1,60 @@
 package com.infobell.one_stop.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * Represents a product in the system.
  */
 @Entity
+@Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int masterId;
+    @Column(name = "product_id")
+    private int productId;
 
-    private String productId;
+    @Column(name = "item_id")
+    private String itemId;
+
+    @Column(name = "product_image")
     private String productImage;
-    private String name;
-    private float price;
-    private int categoryId;
 
-    /**
-     * Gets the master ID of the product.
-     *
-     * @return The master ID.
-     */
-    public int getMasterId() {
-        return masterId;
-    }
+    @Column(name = "product_name")
+    private String productName;
 
-    /**
-     * Sets the master ID of the product.
-     *
-     * @param masterId The master ID to set.
-     */
-    public void setMasterId(int masterId) {
-        this.masterId = masterId;
-    }
+    @Column(name = "product_price")
+    private float productPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private List<CartItem> cartItems;
+
+    @OneToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private ProductDetails productDetails;
 
     /**
      * Gets the product ID.
      *
      * @return The product ID.
      */
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
@@ -53,8 +63,26 @@ public class Product {
      *
      * @param productId The product ID to set.
      */
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    /**
+     * Gets the item ID of the product.
+     *
+     * @return The item ID.
+     */
+    public String getItemId() {
+        return itemId;
+    }
+
+    /**
+     * Sets the item ID of the product.
+     *
+     * @param itemId The item ID to set.
+     */
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     /**
@@ -80,17 +108,17 @@ public class Product {
      *
      * @return The product name.
      */
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
     /**
      * Sets the name of the product.
      *
-     * @param name The product name to set.
+     * @param productName The product name to set.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     /**
@@ -98,34 +126,70 @@ public class Product {
      *
      * @return The product price.
      */
-    public float getPrice() {
-        return price;
+    public float getProductPrice() {
+        return productPrice;
     }
 
     /**
      * Sets the price of the product.
      *
-     * @param price The product price to set.
+     * @param productPrice The product price to set.
      */
-    public void setPrice(float price) {
-        this.price = price;
+    public void setProductPrice(float productPrice) {
+        this.productPrice = productPrice;
     }
 
     /**
-     * Gets the category ID of the product.
+     * Gets the category of the product.
      *
-     * @return The category ID.
+     * @return The category.
      */
-    public int getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
     /**
-     * Sets the category ID of the product.
+     * Sets the category of the product.
      *
-     * @param categoryId The category ID to set.
+     * @param category The category to set.
      */
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    /**
+     * Gets the list of cart items associated with the product.
+     *
+     * @return The list of cart items.
+     */
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    /**
+     * Sets the list of cart items associated with the product.
+     *
+     * @param cartItems The list of cart items to set.
+     */
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    /**
+     * Gets the product details.
+     *
+     * @return The product details.
+     */
+    public ProductDetails getProductDetails() {
+        return productDetails;
+    }
+
+    /**
+     * Sets the product details.
+     *
+     * @param productDetails The product details to set.
+     */
+    public void setProductDetails(ProductDetails productDetails) {
+        this.productDetails = productDetails;
     }
 }

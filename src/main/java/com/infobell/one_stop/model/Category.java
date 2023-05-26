@@ -1,24 +1,43 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import java.util.List;
 
 /**
  * Represents a category in the system.
  */
 @Entity
+@Table(name = "category")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
     private int categoryId;
-    
+
+    @Column(name = "category_img_path")
     private String categoryImgPath;
+    
+    @Column(name = "category_name")
     private String categoryName;
+    
+    @Column(name = "flag")
     private boolean flag;
-    private int parentCategoryId;
+    
+    @Column(name = "parent_category_id")
+    private String parentCategoryId;
+
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Product> products;
 
     /**
      * Gets the category ID.
@@ -97,7 +116,7 @@ public class Category {
      *
      * @return The parent category ID.
      */
-    public int getParentCategoryId() {
+    public String getParentCategoryId() {
         return parentCategoryId;
     }
 
@@ -106,7 +125,26 @@ public class Category {
      *
      * @param parentCategoryId The parent category ID to set.
      */
-    public void setParentCategoryId(int parentCategoryId) {
+    public void setParentCategoryId(String parentCategoryId) {
         this.parentCategoryId = parentCategoryId;
     }
+
+    /**
+     * Gets the products associated with the category.
+     *
+     * @return The products.
+     */
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    /**
+     * Sets the products associated with the category.
+     *
+     * @param products The products to set.
+     */
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
 }

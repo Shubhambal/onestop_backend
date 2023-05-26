@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
             existingAdmin.setLastName(admin.getLastName());
             existingAdmin.setEmailId(admin.getEmailId());
             return adminRepository.save(existingAdmin);
-        } else {
+            } else {
             return null;
         }
     }
@@ -58,8 +58,8 @@ public class AdminServiceImpl implements AdminService {
         if (adminOptional.isPresent()) {
             adminRepository.deleteById(id);
             return true;
-        } else {
+            } else {
             return false;
+            }
         }
-    }
 }

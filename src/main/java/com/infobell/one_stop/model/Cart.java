@@ -1,23 +1,45 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import java.util.List;
 
 /**
  * Represents a cart in the system.
  */
 @Entity
+@Table(name = "cart")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id")
     private int cartId;
     
+    @Column(name = "total_cost")
     private double totalCost;
-    
-    private int customerId;
+     
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private List<CartItem> cartItems;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private Orders order;
 
     /**
      * Gets the cart ID.
@@ -56,20 +78,56 @@ public class Cart {
     }
 
     /**
-     * Gets the customer ID associated with the cart.
+     * Gets the customer associated with the cart.
      *
-     * @return The customer ID.
+     * @return The customer.
      */
-    public int getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
     /**
-     * Sets the customer ID associated with the cart.
+     * Sets the customer associated with the cart.
      *
-     * @param customerId The customer ID to set.
+     * @param customer The customer to set.
      */
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    /**
+     * Gets the cart items in the cart.
+     *
+     * @return The cart items.
+     */
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    /**
+     * Sets the cart items in the cart.
+     *
+     * @param cartItems The cart items to set.
+     */
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    /**
+     * Gets the order associated with the cart.
+     *
+     * @return The order.
+     */
+    public Orders getOrder() {
+        return order;
+    }
+
+    /**
+     * Sets the order associated with the cart.
+     *
+     * @param order The order to set.
+     */
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 }

@@ -29,9 +29,9 @@ public class AdminController {
     @GetMapping("/{id}")
     public ResponseEntity<Admin> getAdminById(@PathVariable int id) {
         Admin admin = adminService.getAdminById(id);
-        if (admin != null) {
+            if (admin != null) {
             return new ResponseEntity<>(admin, HttpStatus.OK);
-        } else {
+            } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -45,9 +45,9 @@ public class AdminController {
     @PutMapping("/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable int id, @RequestBody Admin admin) {
         Admin updatedAdmin = adminService.updateAdmin(id, admin);
-        if (updatedAdmin != null) {
+            if (updatedAdmin != null) {
             return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
-        } else {
+            } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -57,7 +57,7 @@ public class AdminController {
         boolean deleted = adminService.deleteAdmin(adminId);
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
+            } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

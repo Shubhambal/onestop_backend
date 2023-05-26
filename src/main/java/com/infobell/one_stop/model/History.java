@@ -2,38 +2,50 @@ package com.infobell.one_stop.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represents a history entry in the system.
  */
 @Entity
+@Table(name = "history")
 public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "history_id")
     private int historyId;
-    
-    private int orderId;
+//
+//    @Column(name = "order_id")
+//    private int orderId;
+
+    @Column(name = "product_name")
     private String productName;
+
+    @Column(name = "product_image")
     private String productImage;
+
+    @Column(name = "product_price")
     private float productPrice;
+
+    @Column(name = "total_cost")
     private double totalCost;
+
+    @Column(name = "order_date")
     private Date orderDate;
-    private String orderStatus;
 
-    public String getOrderStatus() {
-		return orderStatus;
-	}
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders order;
 
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
-	/**
+    /**
      * Gets the history ID.
      *
      * @return The history ID.
@@ -51,23 +63,23 @@ public class History {
         this.historyId = historyId;
     }
 
-    /**
-     * Gets the order ID associated with the history entry.
-     *
-     * @return The order ID.
-     */
-    public int getOrderId() {
-        return orderId;
-    }
-
-    /**
-     * Sets the order ID associated with the history entry.
-     *
-     * @param orderId The order ID to set.
-     */
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
+//    /**
+//     * Gets the order ID associated with the history entry.
+//     *
+//     * @return The order ID.
+//     */
+//    public int getOrderId() {
+//        return orderId;
+//    }
+//
+//    /**
+//     * Sets the order ID associated with the history entry.
+//     *
+//     * @param orderId The order ID to set.
+//     */
+//    public void setOrderId(int orderId) {
+//        this.orderId = orderId;
+//    }
 
     /**
      * Gets the product name associated with the history entry.
@@ -157,5 +169,23 @@ public class History {
      */
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    /**
+     * Gets the order associated with the history entry.
+     *
+     * @return The order.
+     */
+    public Orders getOrder() {
+        return order;
+    }
+
+    /**
+     * Sets the order associated with the history entry.
+     *
+     * @param order The order to set.
+     */
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 }
