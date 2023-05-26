@@ -11,31 +11,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * Represents a product in the system.
  */
 @Entity
+@Table(name = "product")
 public class Product {
 
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "master_id")
-    private int masterId;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private String productId;
-    
+    private int productId;
+
+    @Column(name = "item_id")
+    private String itemId;
+
     @Column(name = "product_image")
     private String productImage;
-    
+
     @Column(name = "product_name")
     private String productName;
-    
+
     @Column(name = "product_price")
     private float productPrice;
-    
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -49,32 +49,12 @@ public class Product {
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private ProductDetails productDetails;
 
-    // Getter and setter methods
-    
-    /**
-     * Gets the master ID of the product.
-     *
-     * @return The master ID.
-     */
-    public int getMasterId() {
-        return masterId;
-    }
-
-    /**
-     * Sets the master ID of the product.
-     *
-     * @param masterId The master ID to set.
-     */
-    public void setMasterId(int masterId) {
-        this.masterId = masterId;
-    }
-
     /**
      * Gets the product ID.
      *
      * @return The product ID.
      */
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
@@ -83,8 +63,26 @@ public class Product {
      *
      * @param productId The product ID to set.
      */
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    /**
+     * Gets the item ID of the product.
+     *
+     * @return The item ID.
+     */
+    public String getItemId() {
+        return itemId;
+    }
+
+    /**
+     * Sets the item ID of the product.
+     *
+     * @param itemId The item ID to set.
+     */
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     /**
@@ -178,7 +176,7 @@ public class Product {
     }
 
     /**
-     * Gets the product details associated with the product.
+     * Gets the product details.
      *
      * @return The product details.
      */
@@ -187,7 +185,7 @@ public class Product {
     }
 
     /**
-     * Sets the product details associated with the product.
+     * Sets the product details.
      *
      * @param productDetails The product details to set.
      */
