@@ -3,6 +3,7 @@ package com.infobell.one_stop.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,60 +27,53 @@ import com.infobell.one_stop.service.ProductService;
 @RequestMapping("/product")
 public class ProductController {
 
-	@Autowired
-	private ProductService productservice;
+    @Autowired
+    private ProductService productService;
 
-	/**
-	 * Retrieves all products.
-	 *
-	 * @return a list of Product objects
-	 */
-	@GetMapping("/getproduct")
-	public List<Product> getProduct() {
-		return this.productservice.getProduct();
-	}
+    // Get all products
+    @GetMapping("/pro")
+    public ResponseEntity<List<Product>> getProduct() {
+        List<Product> products = productService.getProduct();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 
-	/**
-	 * Adds a new product.
-	 *
-	 * @param product the Product object to be added
-	 * @return the ResponseEntity containing the result of the operation
-	 */
-	@PostMapping("/saveproduct")
-	public ResponseEntity<?> addProduct(@RequestBody Product product) {
-		return ResponseEntity.status(200).body(productservice.addProduct(product));
-	}
+    // Add a new product
+    @PostMapping("/savepro")
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        Product addedProduct = productService.addProduct(product);
+        return new ResponseEntity<>(addedProduct, HttpStatus.CREATED);
+    }
 
-	/**
-	 * Retrieves a product by its ID.
-	 *
-	 * @param id the ID of the product
-	 * @return the ResponseEntity containing the requested product or an error message
-	 */
-	@GetMapping("/product/{id}")
-	public ResponseEntity<?> getProductById(@PathVariable String id) {
-		return ResponseEntity.status(200).body(productservice.getProductById(id));
-	}
+    // Get product by ID
+    @GetMapping("/pro/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable String id) {
+        Product product = productService.getProductById(id);
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-	/**
-	 * Updates an existing product.
-	 *
-	 * @param product the updated Product object
-	 * @return the ResponseEntity containing the result of the operation
-	 */
-	@PutMapping("/updateproduct")
-	public ResponseEntity<?> updateProduct(@RequestBody Product product) {
-		return ResponseEntity.status(200).body(productservice.updateProduct(product));
-	}
+    // Update a product
+    @PutMapping("/update")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        Product updatedProduct = productService.updateProduct(product);
+        if (updatedProduct != null) {
+            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-	/**
-	 * Deletes a product by its master ID.
-	 *
-	 * @param masterId the master ID of the product
-	 * @return the ResponseEntity containing the result of the operation
-	 */
-	@DeleteMapping("/delete/{masterId}")
-	public ResponseEntity<?> deleteById(@PathVariable int masterId) {
-		return ResponseEntity.status(200).body(productservice.deleteById(masterId));
-	}
+    // Delete a product by ID
+    @DeleteMapping("/delete/{masterId}")
+    public ResponseEntity<String> deleteById(@PathVariable int masterId) {
+        String result = productService.deleteById(masterId);
+        if (result.equals("success")) {
+            return new ResponseEntity<>("Product deleted successfully", HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
+        }
+    }
 }

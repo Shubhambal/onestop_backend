@@ -1,21 +1,13 @@
 package com.infobell.one_stop.service;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-
 import com.infobell.one_stop.model.Customer;
 
 public interface CustomerService {
+    Customer getCustomerById(int id);
 
-	public ResponseEntity<String>  registerCustomer(Customer customer);
+    Customer createCustomer(Customer customer);
 
-	public ResponseEntity<Customer> getCustomerById(Integer customerId);
+    Customer updateCustomer(int id, Customer customer);
 
-	public List<Customer> getAllCustomer();
-	
-	public ResponseEntity<?> deleteCustomer(Integer customerId);
-
-	public ResponseEntity<?> updateCustomer(Customer customer);
-
+    String deleteCustomer(int id);
 }

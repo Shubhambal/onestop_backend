@@ -1,50 +1,64 @@
 package com.infobell.one_stop.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.infobell.one_stop.model.Customer;
 import com.infobell.one_stop.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
 
-	@Autowired
-	private CustomerService customerService;
+    private final CustomerService customerService;
 
-	@PostMapping("/register")
-	public ResponseEntity<?> registerCustomer(@RequestBody Customer customer) {
-		return ResponseEntity.status(200).body(customerService.registerCustomer(customer));
-	}
+    @Autowired
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
-	@GetMapping("/getById/{customerId}")
-	public ResponseEntity<?> getCustomerById(@PathVariable Integer customerId) {
-		return ResponseEntity.status(200).body(customerService.getCustomerById(customerId));
-	}
+    // Get customer by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable int id) {
+        try {
+            Customer customer = customerService.getCustomerById(id);
+            return ResponseEntity.ok(customer);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
-	@GetMapping("/getAll")
-	public List<Customer> getAllCustomer() {
-		return customerService.getAllCustomer();
-	}
+    // Create a new customer
+    @PostMapping("/create")
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+        try {
+            Customer createdCustomer = customerService.createCustomer(customer);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 
-	@DeleteMapping("/delete/{customerId}")
-	public ResponseEntity<?> deleteCustomerById(@PathVariable Integer customerId) {
-		return ResponseEntity.status(200).body(customerService.deleteCustomer(customerId));
-	}
+    // Update an existing customer
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable int id, @RequestBody Customer customer) {
+        try {
+            Customer updatedCustomer = customerService.updateCustomer(id, customer);
+            return ResponseEntity.ok(updatedCustomer);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
-	@PutMapping("/update")
-	public ResponseEntity<?> updateCustomerById(@RequestBody Customer customer) {
-		return ResponseEntity.status(200).body(customerService.updateCustomer(customer));
-	}
-
+    // Delete a customer by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable int id) {
+        try {
+            String message = customerService.deleteCustomer(id);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
