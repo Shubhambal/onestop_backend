@@ -29,12 +29,14 @@ public class Cart {
     @Column(name = "total_cost")
     private double totalCost;
      
-    @ManyToOne
+//    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "cart_id")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 
     @OneToOne(cascade = CascadeType.ALL)

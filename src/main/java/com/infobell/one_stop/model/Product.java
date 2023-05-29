@@ -1,7 +1,7 @@
 package com.infobell.one_stop.model;
 
 import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * Represents a product in the system.
@@ -36,17 +38,20 @@ public class Product {
 
     @Column(name = "product_price")
     private float productPrice;
-
+    
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
 
     @OneToMany
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private List<CartItem> cartItems;
 
-    @OneToOne
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+//    @OneToOne
+//    @JoinColumn(name = "product_id")
+    @JsonManagedReference
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private ProductDetails productDetails;
 
     /**

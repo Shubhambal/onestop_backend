@@ -23,29 +23,30 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productservice;
-	
-	@GetMapping("/pro")
-	public List<Product> getProduct(){
+
+	@GetMapping("/get")
+	public List<Product> getProduct() {
 		return this.productservice.getProduct();
 	}
-	
-	@PostMapping("/savepro")
-	public Product addProduct( @RequestBody Product product) {
+
+	@PostMapping("/save")
+	public Product addProduct(@RequestBody Product product) {
 		return this.productservice.addProduct(product);
 	}
-	
-	@GetMapping("/pro/{id}")
-	public Product getProductById( @PathVariable String id) {
+
+	@GetMapping("/getById/{id}")
+	public Product getProductById(@PathVariable int id) {
 		return this.productservice.getProductById(id);
 	}
-	
+
 	@PutMapping("/update")
-	public Product updateProduct( @RequestBody Product product ) {
+	public Product updateProduct(@RequestBody Product product) {
 		return this.productservice.updateProduct(product);
 	}
-	
-	@DeleteMapping("/delete/{masterId}")
-	public String deleteById( @PathVariable int masterId) {
-		return this.productservice.deleteById(masterId);
+
+	@DeleteMapping("/delete/{productId}")
+	public String deleteById(@PathVariable int productId) {
+		return this.productservice.deleteById(productId);
 	}
+
 }

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Represents the details of a product in the system.
  */
@@ -27,6 +29,7 @@ public class ProductDetails {
     private String specification;
     
     // Establishes a one-to-one relationship with the Product entity
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;

@@ -1,5 +1,6 @@
 package com.infobell.one_stop.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.util.List;
@@ -44,10 +46,11 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    // Define the one-to-many relationship with Cart
-    @OneToMany
-    @JoinColumn(name = "customer_id")
-    private List<Cart> carts;
+// Define the one-to-many relationship with Cart
+//    @OneToMany
+//    @JoinColumn(name = "customer_id")
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Cart cart;
 
     /**
      * Gets the customer ID.
@@ -198,8 +201,8 @@ public class Customer {
      *
      * @return The carts.
      */
-    public List<Cart> getCarts() {
-        return carts;
+    public Cart getCart() {
+        return cart;
     }
 
     /**
@@ -207,8 +210,8 @@ public class Customer {
      *
      * @param carts The carts to set.
      */
-    public void setCarts(List<Cart> carts) {
-        this.carts = carts;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
 }

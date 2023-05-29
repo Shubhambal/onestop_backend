@@ -1,7 +1,6 @@
 package com.infobell.one_stop.service;
 
 import java.util.List;
-
 import com.infobell.one_stop.model.Product;
 
 public interface ProductService {
@@ -27,7 +26,7 @@ public interface ProductService {
      * @param id The ID of the product to retrieve.
      * @return The retrieved product, or null if not found.
      */
-    public Product getProductById(String id);
+    public Product getProductById(int id);
 
     /**
      * Updates an existing product.

@@ -7,5 +7,6 @@ import com.infobell.one_stop.model.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	
+	Customer findByEmailId(String emailId);
 	
 }

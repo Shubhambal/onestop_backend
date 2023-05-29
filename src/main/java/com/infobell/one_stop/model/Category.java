@@ -1,14 +1,14 @@
 package com.infobell.one_stop.model;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
 /**
@@ -18,133 +18,142 @@ import java.util.List;
 @Table(name = "category")
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private int categoryId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "category_id")
+	private int categoryId;
 
-    @Column(name = "category_img_path")
-    private String categoryImgPath;
-    
-    @Column(name = "category_name")
-    private String categoryName;
-    
-    @Column(name = "flag")
-    private boolean flag;
-    
-    @Column(name = "parent_category_id")
-    private String parentCategoryId;
+	@Column(name = "category_img_path")
+	private String categoryImgPath;
 
-    @OneToMany
-    @JoinColumn(name = "category_id")
-    private List<Product> products;
+	@Column(name = "category_name")
+	private String categoryName;
 
-    /**
-     * Gets the category ID.
-     *
-     * @return The category ID.
-     */
-    public int getCategoryId() {
-        return categoryId;
-    }
+	@Column(name = "flag")
+	private boolean flag;
 
-    /**
-     * Sets the category ID.
-     *
-     * @param categoryId The category ID to set.
-     */
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
+	@Column(name = "parent_category_id")
+	private String parentCategoryId;
 
-    /**
-     * Gets the image path of the category.
-     *
-     * @return The category image path.
-     */
-    public String getCategoryImgPath() {
-        return categoryImgPath;
-    }
+	@JsonManagedReference
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, }, fetch = FetchType.LAZY, mappedBy = "category")
+	private List<Product> products;
 
-    /**
-     * Sets the image path of the category.
-     *
-     * @param categoryImgPath The category image path to set.
-     */
-    public void setCategoryImgPath(String categoryImgPath) {
-        this.categoryImgPath = categoryImgPath;
-    }
+	/**
+	 * Gets the category ID.
+	 *
+	 * @return The category ID.
+	 */
+	
+	public int getCategoryId() {
+		return categoryId;
+	}
 
-    /**
-     * Gets the name of the category.
-     *
-     * @return The category name.
-     */
-    public String getCategoryName() {
-        return categoryName;
-    }
+	public Category() {
 
-    /**
-     * Sets the name of the category.
-     *
-     * @param categoryName The category name to set.
-     */
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
+	}
 
-    /**
-     * Checks if the category is flagged.
-     *
-     * @return True if the category is flagged, false otherwise.
-     */
-    public boolean isFlag() {
-        return flag;
-    }
+	public Category(int categoryId) {
+		this.categoryId = categoryId;
+	}
 
-    /**
-     * Sets the flag status of the category.
-     *
-     * @param flag The flag status to set.
-     */
-    public void setFlag(boolean flag) {
-        this.flag = flag;
-    }
+	/**
+	 * Sets the category ID.
+	 *
+	 * @param categoryId The category ID to set.
+	 */
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
 
-    /**
-     * Gets the parent category ID.
-     *
-     * @return The parent category ID.
-     */
-    public String getParentCategoryId() {
-        return parentCategoryId;
-    }
+	/**
+	 * Gets the image path of the category.
+	 *
+	 * @return The category image path.
+	 */
+	public String getCategoryImgPath() {
+		return categoryImgPath;
+	}
 
-    /**
-     * Sets the parent category ID.
-     *
-     * @param parentCategoryId The parent category ID to set.
-     */
-    public void setParentCategoryId(String parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
-    }
+	/**
+	 * Sets the image path of the category.
+	 *
+	 * @param categoryImgPath The category image path to set.
+	 */
+	public void setCategoryImgPath(String categoryImgPath) {
+		this.categoryImgPath = categoryImgPath;
+	}
 
-    /**
-     * Gets the products associated with the category.
-     *
-     * @return The products.
-     */
-    public List<Product> getProducts() {
-        return products;
-    }
+	/**
+	 * Gets the name of the category.
+	 *
+	 * @return The category name.
+	 */
+	public String getCategoryName() {
+		return categoryName;
+	}
 
-    /**
-     * Sets the products associated with the category.
-     *
-     * @param products The products to set.
-     */
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+	/**
+	 * Sets the name of the category.
+	 *
+	 * @param categoryName The category name to set.
+	 */
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	/**
+	 * Checks if the category is flagged.
+	 *
+	 * @return True if the category is flagged, false otherwise.
+	 */
+	public boolean isFlag() {
+		return flag;
+	}
+
+	/**
+	 * Sets the flag status of the category.
+	 *
+	 * @param flag The flag status to set.
+	 */
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+	/**
+	 * Gets the parent category ID.
+	 *
+	 * @return The parent category ID.
+	 */
+	public String getParentCategoryId() {
+		return parentCategoryId;
+	}
+
+	/**
+	 * Sets the parent category ID.
+	 *
+	 * @param parentCategoryId The parent category ID to set.
+	 */
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+	}
+
+	/**
+	 * Gets the products associated with the category.
+	 *
+	 * @return The products.
+	 */
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	/**
+	 * Sets the products associated with the category.
+	 *
+	 * @param products The products to set.
+	 */
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
 }
