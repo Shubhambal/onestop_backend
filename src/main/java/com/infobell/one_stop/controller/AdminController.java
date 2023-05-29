@@ -20,7 +20,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/get/{id}")
     public ResponseEntity<List<Admin>> getAllAdmins() {
         List<Admin> admins = adminService.getAllAdmins();
         return new ResponseEntity<>(admins, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class AdminController {
         return new ResponseEntity<>(createdAdmin, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable int id, @RequestBody Admin admin) {
         Admin updatedAdmin = adminService.updateAdmin(id, admin);
             if (updatedAdmin != null) {
