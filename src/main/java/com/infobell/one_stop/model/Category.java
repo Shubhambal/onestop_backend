@@ -30,7 +30,7 @@ public class Category {
     private boolean flag;
     
     @Column(name = "parent_category_id")
-    private int parentCategoryId;
+    private String parentCategoryId;
 
     @OneToMany
     @JoinColumn(name = "category_id")
@@ -113,7 +113,7 @@ public class Category {
      *
      * @return The parent category ID.
      */
-    public int getParentCategoryId() {
+    public String getParentCategoryId() {
         return parentCategoryId;
     }
 
@@ -122,7 +122,7 @@ public class Category {
      *
      * @param parentCategoryId The parent category ID to set.
      */
-    public void setParentCategoryId(int parentCategoryId) {
+    public void setParentCategoryId(String parentCategoryId) {
         this.parentCategoryId = parentCategoryId;
     }
 
