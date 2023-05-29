@@ -6,5 +6,5 @@ import com.infobell.one_stop.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-	Product findByProductId(int id);
+	Product findByProductId(String id);
 }

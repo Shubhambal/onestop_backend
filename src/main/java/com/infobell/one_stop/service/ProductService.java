@@ -26,7 +26,7 @@ public interface ProductService {
      * @param id The ID of the product to retrieve.
      * @return The retrieved product, or null if not found.
      */
-    public Product getProductById(int id);
+    public Product getProductById(String id);
 
     /**
      * Updates an existing product.
