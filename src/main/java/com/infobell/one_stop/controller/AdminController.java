@@ -1,13 +1,12 @@
 package com.infobell.one_stop.controller;
 
+import com.infobell.one_stop.exception.ResourceNotFoundException;
 import com.infobell.one_stop.model.Admin;
 import com.infobell.one_stop.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/admins")
@@ -20,45 +19,43 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<List<Admin>> getAllAdmins() {
-        List<Admin> admins = adminService.getAllAdmins();
-        return new ResponseEntity<>(admins, HttpStatus.OK);
-    }
-
+    // Get admin by ID
     @GetMapping("/{id}")
     public ResponseEntity<Admin> getAdminById(@PathVariable int id) {
-        Admin admin = adminService.getAdminById(id);
-            if (admin != null) {
-            return new ResponseEntity<>(admin, HttpStatus.OK);
-            } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Admin admin = adminService.getAdminById(id);
+            return ResponseEntity.ok(admin);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
-    @PostMapping("/post")
+    // Create a new admin
+    @PostMapping("/create")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         Admin createdAdmin = adminService.createAdmin(admin);
-        return new ResponseEntity<>(createdAdmin, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
     }
 
-    @PutMapping("/update/{id}")
+    // Update an existing admin
+    @PutMapping("/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable int id, @RequestBody Admin admin) {
-        Admin updatedAdmin = adminService.updateAdmin(id, admin);
-            if (updatedAdmin != null) {
-            return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
-            } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Admin updatedAdmin = adminService.updateAdmin(id, admin);
+            return ResponseEntity.ok(updatedAdmin);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
-    @DeleteMapping("/delete/{adminId}")
-    public ResponseEntity<Void> deleteAdmin(@PathVariable int adminId) {
-        boolean deleted = adminService.deleteAdmin(adminId);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // Delete an admin by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAdmin(@PathVariable int id) {
+        try {
+            String result = adminService.deleteAdmin(id);
+            return ResponseEntity.ok(result);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }

@@ -2,15 +2,10 @@ package com.infobell.one_stop.controller;
 
 import com.infobell.one_stop.model.CartItem;
 import com.infobell.one_stop.service.CartItemService;
-import com.infobell.one_stop.serviceimpl.CartItemServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/cart-items")
@@ -23,76 +18,47 @@ public class CartItemController {
         this.cartItemService = cartItemService;
     }
 
-    /**
-     * Retrieves all cart items.
-     *
-     * @return A list of cart items.
-     */
-    @GetMapping
-    public ResponseEntity<List<CartItem>> getAllCartItems() {
-        List<CartItem> cartItems = cartItemService.getAllCartItems();
-        return new ResponseEntity<>(cartItems, HttpStatus.OK);
-    }
-
-    /**
-     * Retrieves a cart item by its ID.
-     *
-     * @param cartItemId The ID of the cart item.
-     * @return The cart item with the given ID.
-     */
-    @GetMapping("/{cartItemId}")
-    public ResponseEntity<CartItem> getCartItemById(@PathVariable int cartItemId) {
+    // Get cart item by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<CartItem> getCartItemById(@PathVariable int id) {
         try {
-            CartItem cartItem = cartItemService.getCartItemById(cartItemId);
-            return new ResponseEntity<>(cartItem, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            CartItem cartItem = cartItemService.getCartItemById(id);
+            return ResponseEntity.ok(cartItem);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
-    /**
-     * Creates a new cart item.
-     *
-     * @param cartItem The cart item to create.
-     * @return The created cart item.
-     */
-    @PostMapping
+    // Create a new cart item
+    @PostMapping("/create")
     public ResponseEntity<CartItem> createCartItem(@RequestBody CartItem cartItem) {
-        CartItem createdCartItem = cartItemService.createCartItem(cartItem);
-        return new ResponseEntity<>(createdCartItem, HttpStatus.CREATED);
-    }
-
-    /**
-     * Updates an existing cart item.
-     *
-     * @param cartItemId The ID of the cart item to update.
-     * @param cartItem   The updated cart item.
-     * @return The updated cart item.
-     */
-    @PutMapping("/{cartItemId}")
-    public ResponseEntity<CartItem> updateCartItem(
-            @PathVariable int cartItemId, @RequestBody CartItem cartItem) {
         try {
-            CartItem updatedCartItem = cartItemService.updateCartItem(cartItemId, cartItem);
-            return new ResponseEntity<>(updatedCartItem, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            CartItem createdCartItem = cartItemService.createCartItem(cartItem);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCartItem);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
-    /**
-     * Deletes a cart item.
-     *
-     * @param cartItemId The ID of the cart item to delete.
-     * @return A response indicating the success of the operation.
-     */
-    @DeleteMapping("/{cartItemId}")
-    public ResponseEntity<Void> deleteCartItem(@PathVariable int cartItemId) {
+    // Update an existing cart item
+    @PutMapping("/{id}")
+    public ResponseEntity<CartItem> updateCartItem(@PathVariable int id, @RequestBody CartItem cartItem) {
         try {
-            cartItemService.deleteCartItem(cartItemId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            CartItem updatedCartItem = cartItemService.updateCartItem(id, cartItem);
+            return ResponseEntity.ok(updatedCartItem);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    // Delete a cart item by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCartItem(@PathVariable int id) {
+        try {
+            String message = cartItemService.deleteCartItem(id);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }

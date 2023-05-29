@@ -2,24 +2,15 @@ package com.infobell.one_stop.service;
 
 import com.infobell.one_stop.model.CartItem;
 
-import java.util.List;
-
 public interface CartItemService {
-
-    /**
-     * Retrieves all cart items.
-     *
-     * @return A list of cart items.
-     */
-    List<CartItem> getAllCartItems();
-
+    
     /**
      * Retrieves a cart item by its ID.
      *
-     * @param cartItemId The ID of the cart item.
-     * @return The cart item with the given ID.
+     * @param id The ID of the cart item to retrieve.
+     * @return The cart item with the specified ID.
      */
-    CartItem getCartItemById(int cartItemId);
+    CartItem getCartItemById(int id);
 
     /**
      * Creates a new cart item.
@@ -32,16 +23,17 @@ public interface CartItemService {
     /**
      * Updates an existing cart item.
      *
-     * @param cartItemId The ID of the cart item to update.
-     * @param cartItem   The updated cart item.
+     * @param id       The ID of the cart item to update.
+     * @param cartItem The updated cart item data.
      * @return The updated cart item.
      */
-    CartItem updateCartItem(int cartItemId, CartItem cartItem);
+    CartItem updateCartItem(int id, CartItem cartItem);
 
     /**
-     * Deletes a cart item.
+     * Deletes a cart item by its ID.
      *
-     * @param cartItemId The ID of the cart item to delete.
+     * @param id The ID of the cart item to delete.
+     * @return A success message indicating the deletion.
      */
-    void deleteCartItem(int cartItemId);
+    String deleteCartItem(int id);
 }
