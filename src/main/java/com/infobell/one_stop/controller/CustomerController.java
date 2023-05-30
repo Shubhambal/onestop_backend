@@ -2,12 +2,15 @@ package com.infobell.one_stop.controller;
 
 import com.infobell.one_stop.model.Customer;
 import com.infobell.one_stop.service.CustomerService;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/customers")
 public class CustomerController {
 
@@ -61,4 +64,58 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    
+//  //checking BCrypt password
+//		static private boolean checkPass1(String plainPassword, String hashedPassword) {
+//			if (BCrypt.checkpw(plainPassword, hashedPassword)) {
+//				System.out.println("The password matches.");
+//				return true;
+//			}
+//			else {
+//				System.out.println("The password does not match.");
+//				return false;
+//			}
+//		}
+    @PostMapping("/customerRegister")
+	public void customerRegister(@RequestBody Customer customer) {
+    	customerService.add(customer);
+	}
+		
+		//checking BCrypt password
+		static private boolean checkPass(String plainPassword, String hashedPassword) {
+			if (BCrypt.checkpw(plainPassword, hashedPassword)) {
+				System.out.println("The password matches.");
+				return true;
+			}
+			else {
+				System.out.println("The password does not match.");
+				return false;
+			}
+		}
+		
+		//player table check for logged in email and password
+			public Customer customerCheck(String email, String plainPassword ) {
+				
+				Customer customer = CustomerService.getByEmail(email);
+				if (customer != null) {
+					String hashedPassword=customer.getPassword();
+					if(checkPass(plainPassword, hashedPassword)) {
+						return customer;
+					}
+				}
+				return null;
+			}
+		
+		@PostMapping(value= {"/customerLogin"})
+		public Object userLogin(@RequestBody Customer customer ) {
+			
+			String email = customer.getEmailId();
+			String plainPassword=customer.getPassword();
+			
+			if(customerCheck(email, plainPassword)!=null) {
+				return customerCheck(email, plainPassword);
+			}
+			else
+				return null;				
+		}
 }

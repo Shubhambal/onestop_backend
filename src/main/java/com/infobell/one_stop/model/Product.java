@@ -2,6 +2,7 @@ package com.infobell.one_stop.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,8 +46,7 @@ public class Product {
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private List<CartItem> cartItems;
 
-    @OneToOne
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private ProductDetails productDetails;
 
     /**

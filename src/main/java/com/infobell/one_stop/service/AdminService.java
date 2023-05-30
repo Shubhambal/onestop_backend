@@ -1,6 +1,9 @@
 package com.infobell.one_stop.service;
 
+import java.util.List;
+
 import com.infobell.one_stop.model.Admin;
+import com.infobell.one_stop.model.Customer;
 
 public interface AdminService {
     /**
@@ -35,4 +38,14 @@ public interface AdminService {
      * @return A success message indicating the admin deletion.
      */
     String deleteAdmin(int id);
+    
+    
+    Admin getByEmail(String email);
+    
+    List<Admin> getAll();
+    
+    void modify(Admin admin);
+
+    void add(Admin admin);
+	
 }

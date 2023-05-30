@@ -3,6 +3,12 @@ package com.infobell.one_stop.service;
 import com.infobell.one_stop.exception.ResourceNotFoundException;
 import com.infobell.one_stop.model.Customer;
 import com.infobell.one_stop.repository.CustomerRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,4 +50,48 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.deleteById(id);
         return "Customer with ID " + id + " has been deleted.";
     }
+
+    @Override
+	public void add(Customer customer) {
+		String encPassword = hashPassword(customer.getPassword());
+		customer.setPassword(encPassword);
+		customerRepository.save(customer);
+	}
+	
+	public String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
+
+	@Override
+	public void modify(Customer customer) {
+		customerRepository.save(customer);
+	}
+
+	@Override
+	public void removeById(int id) {
+		customerRepository.deleteById(id);
+	}
+
+	@Override
+	public Customer getById(int id) {
+		Optional<Customer> opt = customerRepository.findById(id);
+		if(opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Customer> getAll() {
+		Iterable<Customer> itr = customerRepository.findAll();
+		List<Customer> lst = new ArrayList<Customer>();
+		itr.forEach(ele->lst.add(ele));
+		return lst;
+	}
+
+	
+	public Customer getByEmail(String email) {
+		Customer customer = customerRepository.findByemailId(email);
+		return customer;
+	}
 }

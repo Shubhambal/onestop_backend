@@ -2,13 +2,17 @@ package com.infobell.one_stop.controller;
 
 import com.infobell.one_stop.exception.ResourceNotFoundException;
 import com.infobell.one_stop.model.Admin;
+import com.infobell.one_stop.model.Customer;
 import com.infobell.one_stop.service.AdminService;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/admins")
 public class AdminController {
 
@@ -58,4 +62,69 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    
+    
+    
+    @PostMapping("/adminRegister")
+	public void adminRegister(@RequestBody Admin admin) {
+    	adminService.add(admin);
+	}
+    
+  //checking BCrypt password
+  		static private boolean checkPass(String plainPassword, String hashedPassword) {
+  			if (BCrypt.checkpw(plainPassword, hashedPassword)) {
+  				System.out.println("The password matches.");
+  				return true;
+  			}
+  			else {
+  				System.out.println("The password does not match.");
+  				return false;
+  			}
+  		}
+  		
+  		
+  		
+  	//admin table check for logged in email and password
+		public Admin adminCheck(String email, String plainPassword ) {
+			
+			Admin admin = adminService.getByEmail(email);
+			if (admin != null) {
+				String hashedPassword=admin.getPassword();
+				if(checkPass(plainPassword, hashedPassword)) {
+					return admin;
+				}
+			}
+			return null;
+		}
+	
+	@PostMapping(value= {"/adminLogin"})
+	public Object adminLogin(@RequestBody Admin admin ) {
+		
+		String email = admin.getEmailId();
+		String plainPassword=admin.getPassword();
+		
+		if(adminCheck(email, plainPassword)!=null) {
+			return adminCheck(email, plainPassword);
+		}
+		else
+			return null;				
+	}
+	
+	
+	
+	
+	@PostMapping("/checkEmail")
+	public boolean checkEmail(@RequestBody Admin admin) {
+		String email = admin.getEmailId();
+		if(adminService.getByEmail(email)!=null) {
+			return true;
+		}
+//		else if(playerService.getByEmail(email)!=null) {
+//			return true;
+//		}
+//		else if(teamService.getByEmail(email)!=null) {
+//			return true;
+//		}
+		return false;
+	}
 }

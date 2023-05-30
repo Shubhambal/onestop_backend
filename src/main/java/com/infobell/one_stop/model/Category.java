@@ -7,15 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import java.util.List;
 
 /**
  * Represents a category in the system.
  */
 @Entity
-@Table(name = "category")
 public class Category {
 
     @Id
@@ -32,7 +29,7 @@ public class Category {
     @Column(name = "flag")
     private boolean flag;
     
-    @Column(name = "parent_category_id")
+    @Column(name = "parent_category_id")  
     private String parentCategoryId;
 
     @OneToMany

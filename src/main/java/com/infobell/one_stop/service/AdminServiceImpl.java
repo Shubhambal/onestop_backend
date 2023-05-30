@@ -2,7 +2,13 @@ package com.infobell.one_stop.service;
 
 import com.infobell.one_stop.exception.ResourceNotFoundException;
 import com.infobell.one_stop.model.Admin;
+import com.infobell.one_stop.model.Customer;
 import com.infobell.one_stop.repository.AdminRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,4 +60,44 @@ public class AdminServiceImpl implements AdminService {
         }
         throw new ResourceNotFoundException("Admin", "id", String.valueOf(id));
     }
+    
+    
+    
+    
+//    @Autowired
+//	private AdminDao adminDao;
+	
+	@Override
+	public List<Admin> getAll() {
+		Iterable<Admin> itr = adminRepository.findAll();
+		List<Admin> lst = new ArrayList<Admin>();
+		itr.forEach(ele->lst.add(ele));
+		return lst;
+	}
+	
+	@Override
+	public Admin getByEmail(String email) {
+		Admin admin = adminRepository.findByemailId(email);
+		return admin;
+	}
+	
+	@Override
+	public void modify(Admin admin) {
+		String encPassword = hashPassword(admin.getPassword());
+		admin.setPassword(encPassword);
+		adminRepository.save(admin);
+	}
+	
+	public String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
+
+	@Override
+	public void add(Admin admin) {
+		String encPassword = hashPassword(admin.getPassword());
+		admin.setPassword(encPassword);
+		adminRepository.save(admin);
+	}
+	
+	
 }

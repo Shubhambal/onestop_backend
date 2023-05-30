@@ -19,7 +19,7 @@ import com.infobell.one_stop.model.Product;
 import com.infobell.one_stop.service.ProductService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/product")
 public class ProductController {
 
@@ -72,4 +72,9 @@ public class ProductController {
             return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping(value="/{search}")
+    public List<Product> getProductsBySearch(@PathVariable String search)
+	 {
+		 return productService.getProductsBySearch(search);
+	 }
 }

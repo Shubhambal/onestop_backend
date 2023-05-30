@@ -54,4 +54,10 @@ public class ProductServiceImplementation implements ProductService {
 		}
 		throw new ResourceNotFoundException("Product", "id", Integer.toString(id));
 	}
+	
+	 @Override
+		public List<Product> getProductsBySearch(String search)
+		{
+			return productrepository.getProductsBySearch(search+"%");
+		}
 }

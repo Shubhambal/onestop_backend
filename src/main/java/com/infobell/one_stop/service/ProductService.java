@@ -44,4 +44,7 @@ public interface ProductService {
      * @return A status message indicating the result of the delete operation.
      */
     public String deleteById(int id);
+    
+    
+    List<Product> getProductsBySearch(String search );
 }
