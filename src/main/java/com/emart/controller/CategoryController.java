@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.emart.entities.Category;
 import com.emart.exception.CategoryNotFoundException;
 import com.emart.services.CategoryManager;
@@ -23,7 +22,7 @@ import com.emart.services.CategoryManager;
  * The CategoryController class handles the API endpoints related to category operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryController {
 
     @Autowired

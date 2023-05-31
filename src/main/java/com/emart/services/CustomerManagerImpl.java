@@ -21,6 +21,17 @@ public class CustomerManagerImpl implements CustomerManager {
 	
 	@Autowired
     CustomerRepository repository;
+
+	/**
+	 * This method will check weather the username which has been added by the customer is already present in database or not.
+	 * 
+	 * @return If it is present then it will return otherwise false.
+	 * @param c The customer to be added.
+	 */
+	public boolean isUsernameTaken(String username) {
+        Optional<Customer> existingUser = Optional.ofNullable(repository.findByUsername(username));
+        return existingUser.isPresent();
+    }
 	
 	/**
 	 * Add a new customer.

@@ -2,7 +2,6 @@ package com.emart.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.emart.entities.ProductDetails;
 import com.emart.exception.ProductDetailsNotFoundException;
 import com.emart.services.ProductDetailsManager;
@@ -20,7 +18,7 @@ import com.emart.services.ProductDetailsManager;
  * The ProductDetailsController class handles the API endpoints related to ProductDetails operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductDetailsController {
 
     @Autowired

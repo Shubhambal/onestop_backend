@@ -20,7 +20,7 @@ import com.emart.services.PaymentManager;
  * The PaymentController class handles the API endpoints related to Payment operations.
  */
 @RestController  
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PaymentController {
 
     @Autowired

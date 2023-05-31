@@ -62,4 +62,13 @@ public interface CustomerManager {
 	 *         valid username, password or not.
 	 */
 	ResponseEntity<String> authenticateCustomer(Customer customer);
+
+	/**
+	 * This method will check weather the username which has been added by the
+	 * customer is already present in database or not.
+	 * 
+	 * @return If it is present then it will return otherwise false.
+	 * @param c The customer to be added.
+	 */
+	boolean isUsernameTaken(String username);
 }

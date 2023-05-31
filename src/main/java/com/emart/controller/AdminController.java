@@ -22,7 +22,7 @@ import com.emart.services.AdminService;
  * The AdminController class handles the API endpoints related to admin operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/admins")
 public class AdminController {
 
