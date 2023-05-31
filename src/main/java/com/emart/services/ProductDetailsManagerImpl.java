@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emart.entities.Category;
-import com.emart.entities.Configuration;
 import com.emart.entities.ProductDetails;
-import com.emart.repository.ConfigurationRepository;
 import com.emart.repository.ProductDetailsRepository;
 
 @Service

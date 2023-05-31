@@ -3,6 +3,8 @@ package com.emart.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
+
 import com.emart.entities.Customer;
 
 public interface CustomerManager {
@@ -51,4 +53,6 @@ public interface CustomerManager {
 	 * @return An optional containing the customer, or an empty optional if not found.
 	 */
 	Optional<Object> getCustomer(String username);
+	
+	ResponseEntity<String> authenticateCustomer(Customer customer);
 }

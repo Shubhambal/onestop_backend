@@ -3,6 +3,8 @@ package com.emart.services;
 import com.emart.entities.Admin;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 public interface AdminService {
 
     /**
@@ -66,4 +68,6 @@ public interface AdminService {
      * @param admin The admin to add.
      */
     void add(Admin admin);
+    
+    ResponseEntity<String> authenticateAdmin(Admin admin);
 }

@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.emart.entities.Customer;
@@ -11,6 +15,11 @@ import com.emart.repository.CustomerRepository;
 
 @Service
 public class CustomerManagerImpl implements CustomerManager {
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	@Autowired
     CustomerRepository repository;
@@ -21,8 +30,9 @@ public class CustomerManagerImpl implements CustomerManager {
 	 * @param c The customer to be added.
 	 */
 	@Override
-	public void addCustomer(Customer c) {
-		repository.save(c); // Save the customer entity to the repository
+	public void addCustomer(Customer customer) {
+		customer.setpassword(passwordEncoder.encode(customer.getpassword()));
+		repository.save(customer); // Save the customer entity to the repository
 	}
 	
 	/**
@@ -77,4 +87,24 @@ public class CustomerManagerImpl implements CustomerManager {
 	public Optional<Object> getCustomer(String username) {
 		return repository.getByUserName(username); // Retrieve the customer from the repository based on username
 	}
+	
+	@Override
+	public ResponseEntity<String> authenticateCustomer(Customer customer) {
+		try {
+			Optional<Customer> opCustomer = Optional.ofNullable(repository.findByUsername(customer.getusername()));
+			if (opCustomer.isPresent()) {
+				Customer dbCustomer = opCustomer.get();
+				if (bCryptPasswordEncoder.matches(customer.getpassword(), dbCustomer.getpassword()))
+					return ResponseEntity.ok("Successfully Logged In.");
+				else
+					return ResponseEntity.ok("Wrong Password. Please try again!");
+			}
+			return ResponseEntity.ok("Customer is not registered yet.");
+		} catch (Exception e) {
+			// Handle the exception here or log it for troubleshooting
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred during authentication.");
+		}
+	}
+	
 }

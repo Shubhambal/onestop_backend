@@ -35,4 +35,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
      */
     @Query("from Customer c join Cart cr on c.customer_Id=cr.customer where username=:user")
     Optional<Object> getByUserName(@Param("user") String user);
+    
+    Customer findByUsername(String username);
 }

@@ -2,9 +2,14 @@ package com.emart.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.emart.entities.Admin;
@@ -16,7 +21,12 @@ import com.emart.repository.AdminRepository;
  */
 @Service
 public class AdminServiceImpl implements AdminService {
-
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+	
     private final AdminRepository adminRepository;
 
     @Autowired
@@ -45,6 +55,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public Admin createAdmin(Admin admin) {
+    	admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         return adminRepository.save(admin);
     }
 
@@ -142,4 +153,23 @@ public class AdminServiceImpl implements AdminService {
         admin.setPassword(encPassword);
         adminRepository.save(admin);
     }
+    
+    @Override
+	public ResponseEntity<String> authenticateAdmin(Admin admin) {
+		try {
+			Optional<Admin> opAdmin = Optional.ofNullable(adminRepository.findByUsername(admin.getUsername()));
+			if (opAdmin.isPresent()) {
+				Admin dbAdmin = opAdmin.get();
+				if (bCryptPasswordEncoder.matches(admin.getPassword(), dbAdmin.getPassword()))
+					return ResponseEntity.ok("Successfully Logged In.");
+				else
+					return ResponseEntity.ok("Wrong Password. Please try again!");
+			}
+			return ResponseEntity.ok("Admin is not registered yet.");
+		} catch (Exception e) {
+			// Handle the exception here or log it for troubleshooting
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred during authentication.");
+		}
+	}
 }
