@@ -54,5 +54,12 @@ public interface CustomerManager {
 	 */
 	Optional<Object> getCustomer(String username);
 	
+	/**
+	 * Authenticate customer by username and password.
+	 * 
+	 * @param customer details such as username and password .
+	 * @return An ResponseEntity containing the string, based on customer provide
+	 *         valid username, password or not.
+	 */
 	ResponseEntity<String> authenticateCustomer(Customer customer);
 }
