@@ -16,6 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * Represents the cart in the system.
+ * @author  Shubham
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 @Entity
 @Table(name = "Cart")
 public class Cart {

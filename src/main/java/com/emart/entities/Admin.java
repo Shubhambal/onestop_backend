@@ -9,6 +9,9 @@ import javax.persistence.Table;
 
 /**
  * Represents an administrator in the system.
+ * @author  Sourabh
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 @Entity
 @Table(name = "admin")
