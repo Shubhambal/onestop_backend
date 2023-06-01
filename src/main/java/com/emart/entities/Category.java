@@ -11,6 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Represents the category in the system.
+ * @author  Shubham
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 @Entity
 @Table(name = "Category")
 public class Category {
