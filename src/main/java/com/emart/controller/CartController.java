@@ -22,7 +22,7 @@ import com.emart.services.CartManager;
  * The CartController class handles the API endpoints related to cart operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CartController {
 
     @Autowired

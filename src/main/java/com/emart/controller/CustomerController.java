@@ -23,7 +23,7 @@ import com.emart.services.CustomerManager;
  * The CustomerController class handles the API endpoints related to Customer operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
 
     @Autowired
@@ -118,15 +118,19 @@ public class CustomerController {
      *         or an error message if the customer addition fails.
      */
     @PostMapping(value = "api/customer")
-    public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
-        try {
-            manager.addCustomer(customer);
-            return ResponseEntity.ok("Customer added successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to add customer: " + e.getMessage());
-        }
-    }
+	public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
+		try {
+			String username = customer.getusername();
+			if (manager.isUsernameTaken(username)) {
+				return ResponseEntity.badRequest().body("Username is already taken.");
+			}
+			manager.addCustomer(customer);
+			return ResponseEntity.ok("Customer added successfully.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Failed to add customer: " + e.getMessage());
+		}
+	}
 
     /**
      * Retrieves a customer by their username.

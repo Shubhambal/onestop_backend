@@ -22,7 +22,7 @@ import com.emart.services.ProductManager;
  * The ProductController class handles the API endpoints related to Product operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
     @Autowired

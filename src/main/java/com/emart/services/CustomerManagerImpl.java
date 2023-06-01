@@ -2,14 +2,12 @@ package com.emart.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.emart.entities.Customer;
 import com.emart.repository.CustomerRepository;
 
@@ -23,6 +21,17 @@ public class CustomerManagerImpl implements CustomerManager {
 	
 	@Autowired
     CustomerRepository repository;
+
+	/**
+	 * This method will check weather the username which has been added by the customer is already present in database or not.
+	 * 
+	 * @return If it is present then it will return otherwise false.
+	 * @param c The customer to be added.
+	 */
+	public boolean isUsernameTaken(String username) {
+        Optional<Customer> existingUser = Optional.ofNullable(repository.findByUsername(username));
+        return existingUser.isPresent();
+    }
 	
 	/**
 	 * Add a new customer.
@@ -88,6 +97,13 @@ public class CustomerManagerImpl implements CustomerManager {
 		return repository.getByUserName(username); // Retrieve the customer from the repository based on username
 	}
 	
+	/**
+	 * Authenticate customer by username and password.
+	 * 
+	 * @param customer details such as username and password .
+	 * @return An ResponseEntity containing the string, based on customer provide
+	 *         valid username, password or not.
+	 */
 	@Override
 	public ResponseEntity<String> authenticateCustomer(Customer customer) {
 		try {

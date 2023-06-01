@@ -153,7 +153,13 @@ public class AdminServiceImpl implements AdminService {
         admin.setPassword(encPassword);
         adminRepository.save(admin);
     }
-    
+    /**
+	 * Authenticate customer by username and password.
+	 * 
+	 * @param admin details such as username and password .
+	 * @return An ResponseEntity containing the string, based on admin provide
+	 *         valid username, password or not.
+	 */
     @Override
 	public ResponseEntity<String> authenticateAdmin(Admin admin) {
 		try {

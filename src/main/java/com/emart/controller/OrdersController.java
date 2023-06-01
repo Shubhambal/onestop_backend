@@ -20,7 +20,7 @@ import com.emart.services.OrdersManager;
  * The OrdersController class handles the API endpoints related to Orders operations.
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrdersController {
 
     @Autowired
