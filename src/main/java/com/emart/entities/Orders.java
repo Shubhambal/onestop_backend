@@ -13,6 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * Represents the orders in the system.
+ * @author  Sumukh
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 @Entity
 @Table(name = "Orders")
 public class Orders {

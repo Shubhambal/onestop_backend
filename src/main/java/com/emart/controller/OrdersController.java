@@ -16,8 +16,15 @@ import com.emart.entities.Orders;
 import com.emart.exception.OrdersNotFoundException;
 import com.emart.services.OrdersManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The OrdersController class handles the API endpoints related to Orders operations.
+ * 
+ * Author: Sumukh
+ * Version: 3.9.10
+ * Date: 24-05-2023
  */
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -26,6 +33,8 @@ public class OrdersController {
     @Autowired
     public OrdersManager manager;
 
+    private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
+
     /**
      * Adds a new order.
      *
@@ -33,6 +42,9 @@ public class OrdersController {
      */
     @PostMapping("api/addorders")
     public void addOrd(@RequestBody Orders orders) {
+        logger.info("POST /api/addorders");
+        logger.info("Orders: {}", orders);
+
         manager.addOrders(orders);
     }
 
@@ -43,6 +55,8 @@ public class OrdersController {
      */
     @GetMapping("api/orders")
     public List<Orders> getAllOrd() {
+        logger.info("GET /api/orders");
+
         return manager.getAllOrders();
     }
 
@@ -54,6 +68,8 @@ public class OrdersController {
      */
     @GetMapping("api/orders/{order_Id}")
     public Optional<Orders> getOrd(@PathVariable int order_Id) {
+        logger.info("GET /api/orders/{}", order_Id);
+
         Optional<Orders> order = manager.getOrders(order_Id);
         if (order.isPresent()) {
             return order;

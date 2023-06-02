@@ -17,6 +17,9 @@ public class ProductDetailsManagerImpl implements ProductDetailsManager {
 	ProductDetailsRepository repository;
 	
 	/**
+	 * @author  Madhavi
+	 * @version 3.9.10
+	 * @since   24-05-2023
 	 * Add product details.
 	 *
 	 * @param c The product details to be added.

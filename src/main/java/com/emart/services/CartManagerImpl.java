@@ -11,6 +11,9 @@ import com.emart.repository.CartRepository;
 
 /**
  * Implementation of the CartManager interface.
+ * @author  Shubham
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 @Service
 public class CartManagerImpl implements CartManager {

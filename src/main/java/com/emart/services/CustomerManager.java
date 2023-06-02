@@ -10,6 +10,9 @@ import com.emart.entities.Customer;
 public interface CustomerManager {
 	
 	/**
+	  * @author  Sourabh
+	  * @version 3.9.10
+	  * @since   24-05-2023
 	 * Add a new customer.
 	 * 
 	 * @param c The customer to be added.

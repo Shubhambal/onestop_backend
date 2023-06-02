@@ -16,8 +16,15 @@ import com.emart.entities.Payment;
 import com.emart.exception.PaymentNotFoundException;
 import com.emart.services.PaymentManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The PaymentController class handles the API endpoints related to Payment operations.
+ * 
+ * Author: Sumukh
+ * Version: 3.9.10
+ * Date: 24-05-2023
  */
 @RestController  
 @CrossOrigin("http://localhost:3000")
@@ -26,6 +33,8 @@ public class PaymentController {
     @Autowired
     PaymentManager manager;
 
+    private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
+
     /**
      * Retrieves all payments.
      *
@@ -33,6 +42,8 @@ public class PaymentController {
      */
     @GetMapping(value = "api/payment")
     public List<Payment> showPayments() {
+        logger.info("GET /api/payment");
+
         return manager.getPayments();
     }
 
@@ -72,7 +83,9 @@ public class PaymentController {
      */
     @PostMapping("api/payment")
     public void addPayment(@RequestBody Payment payment) {
-        System.out.println("addPayment called");
+        logger.info("POST /api/payment");
+        logger.info("Payment: {}", payment);
+
         manager.addPayment(payment);
     }
 }

@@ -16,8 +16,15 @@ import com.emart.entities.ProductDetails;
 import com.emart.exception.ProductDetailsNotFoundException;
 import com.emart.services.ProductDetailsManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The ProductDetailsController class handles the API endpoints related to ProductDetails operations.
+ * 
+ * Author: Madhavi
+ * Version: 3.9.10
+ * Date: 24-05-2023
  */
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -26,6 +33,8 @@ public class ProductDetailsController {
     @Autowired
     ProductDetailsManager manager;
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductDetailsController.class);
+
     /**
      * Retrieve all product details.
      *
@@ -33,6 +42,8 @@ public class ProductDetailsController {
      */
     @GetMapping(value = "api/productdetails")
     public List<ProductDetails> showProductDetails() {
+        logger.info("GET /api/productdetails");
+
         return manager.getProductDetails();
     }
 
@@ -44,6 +55,8 @@ public class ProductDetailsController {
      */
     @GetMapping(value = "api/productDetailsById/{productDetail_Id}")
     public Optional<ProductDetails> getProductDetail(@PathVariable int productDetail_Id) {
+        logger.info("GET /api/productDetailsById/{}", productDetail_Id);
+
         Optional<ProductDetails> productDetails = manager.getProductDetail(productDetail_Id);
         if (productDetails.isPresent()) {
             return productDetails;
@@ -61,6 +74,8 @@ public class ProductDetailsController {
      */
     @GetMapping(value = "api/productdetails/{p_Id}")
     public List<ProductDetails> getDetails(@PathVariable int p_Id) {
+        logger.info("GET /api/productdetails/{}", p_Id);
+
         List<ProductDetails> productDetails = manager.getDetails(p_Id);
 //        if (productDetails.isEmpty()) {
 //            throw new ProductDetailsNotFoundException("No product details found for product ID: " + p_Id);
@@ -89,7 +104,9 @@ public class ProductDetailsController {
      */
     @PostMapping(value = "api/productdetails")
     public void getProductDetails(@RequestBody ProductDetails prod) {
-        System.out.println("addProductDetails called");
+        logger.info("POST /api/productdetails");
+        logger.info("ProductDetails: {}", prod);
+
         manager.addProductDetails(prod);
     }
 }
