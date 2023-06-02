@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 public interface AdminService {
 
     /**
+      * @author  Sourabh
+      * @version 3.9.10
+      * @since   24-05-2023
      * Retrieves an admin by ID.
      *
      * @param id The ID of the admin to retrieve.

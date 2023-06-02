@@ -16,6 +16,9 @@ public class OrdersManagerImpl implements OrdersManager {
 	public OrdersRepository repository;
 
 	/**
+	  * @author  Sumukh
+	  * @version 3.9.10
+	  * @since   24-05-2023
 	 * Add an order.
 	 * 
 	 * @param order The order to be added.

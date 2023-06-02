@@ -9,6 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Represents the products in the system.
+ * @author  Devesh
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 @Entity
 @Table(name = "Product")
 public class Product {

@@ -16,6 +16,9 @@ import com.emart.repository.CustomerRepository;
 @Service
 public class CustomerManagerImpl implements CustomerManager {
 	
+	 /** @author  Sourabh
+	 * @version 3.9.10
+	 * @since   24-05-2023*/
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	

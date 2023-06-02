@@ -18,8 +18,15 @@ import com.emart.exception.ProductNotFoundException;
 import com.emart.services.CategoryManager;
 import com.emart.services.ProductManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The ProductController class handles the API endpoints related to Product operations.
+ * 
+ * Author: Devesh
+ * Version: 3.9.10
+ * Date: 24-05-2023
  */
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -28,6 +35,8 @@ public class ProductController {
     @Autowired
     ProductManager manager;
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     /**
      * Get all products
      *
@@ -35,6 +44,8 @@ public class ProductController {
      */
     @GetMapping(value = "api/products")
     public List<Product> showProducts() {
+        logger.info("GET /api/products");
+
         return manager.getProducts();
     }
 
@@ -47,6 +58,8 @@ public class ProductController {
      */
     @GetMapping(value = "api/productsById/{pid}")
     public Optional<Product> getProduct(@PathVariable int pid) {
+        logger.info("GET /api/productsById/{}", pid);
+
         Optional<Product> product = manager.getProduct(pid);
         if (product.isPresent()) {
             return product;
@@ -63,6 +76,8 @@ public class ProductController {
      */
     @DeleteMapping(value = "api/products/{pid}")
     public void removeProduct(@PathVariable int pid) {
+        logger.info("DELETE /api/products/{}", pid);
+
         if (!manager.exists(pid)) {
             throw new ProductNotFoundException("Product not found with ID: " + pid);
         }
@@ -76,7 +91,9 @@ public class ProductController {
      */
     @PostMapping(value = "api/products")
     public void addProduct(@RequestBody Product product) {
-        System.out.println("addProduct called");
+        logger.info("POST /api/products");
+        logger.info("Product: {}", product);
+
         manager.addProduct(product);
     }
 
@@ -89,6 +106,8 @@ public class ProductController {
      */
     @GetMapping(value = "api/productsByCat/{cat_Id}")
     public List<Product> getProductsByCategory(@PathVariable int cat_Id) {
+        logger.info("GET /api/productsByCat/{}", cat_Id);
+
         List<Product> products = manager.getProductsBySearch(cat_Id);
         if (products.isEmpty()) {
             throw new ProductNotFoundException("No products found for category ID: " + cat_Id);
@@ -105,6 +124,8 @@ public class ProductController {
      */
     @GetMapping(value = "api/search/{search}")
     public List<Product> searchProducts(@PathVariable String search) {
+        logger.info("GET /api/search/{}", search);
+
         List<Product> products = manager.searchProducts(search);
         if (products.isEmpty()) {
             throw new ProductNotFoundException("No products found for search keyword: " + search);
@@ -120,6 +141,8 @@ public class ProductController {
      */
     @GetMapping(value = "api/promotion")
     public List<Product> getProductsByPromotion() {
+        logger.info("GET /api/promotion");
+
         List<Product> products = manager.getProductsByPromotion();
         if (products.isEmpty()) {
             throw new ProductNotFoundException("No products found with promotion");

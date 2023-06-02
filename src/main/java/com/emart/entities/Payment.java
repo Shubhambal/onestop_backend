@@ -9,6 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * Represents the payments in the system.
+ * @author  Sumukh
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 @Entity
 @Table(name = "payment")
 public class Payment {
