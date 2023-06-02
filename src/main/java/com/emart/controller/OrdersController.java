@@ -68,11 +68,12 @@ public class OrdersController {
      * @param order_Id The ID of the order to delete.
      * @throws OrdersNotFoundException if the order is not found.
      */
-    @DeleteMapping("api/delete/{order_Id}")
-    public void del(@PathVariable int order_Id) {
+    @DeleteMapping("api/orders/delete/{order_Id}")
+    public void deleteOrder(@PathVariable int order_Id) {
         if (!manager.exists(order_Id)) {
             throw new OrdersNotFoundException("Order not found with order_Id: " + order_Id);
         }
         manager.delete(order_Id);
     }
+
 }

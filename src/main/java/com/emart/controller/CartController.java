@@ -85,14 +85,15 @@ public class CartController {
      * @return ResponseEntity with a success message if the item is deleted successfully,
      *         or an error message if the item deletion fails.
      */
-    @DeleteMapping("api/delete/{cart_Id}")
-    public ResponseEntity<String> deleteFrom(@PathVariable int cart_Id) {
+    @DeleteMapping("api/cart/delete/{cart_Id}")
+    public ResponseEntity<String> deleteFromCart(@PathVariable int cart_Id) {
         try {
             manager.deleteFromCart(cart_Id);
             return ResponseEntity.ok("Item deleted from the cart successfully.");
         } catch (Exception e) {
-            // If an error occurs while deleting item from the cart, return an internal server error response
+            // If an error occurs while deleting an item from the cart, return an internal server error response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete item from the cart.");
         }
     }
+
 }

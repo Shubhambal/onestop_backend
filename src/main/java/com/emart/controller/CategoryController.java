@@ -66,14 +66,14 @@ public class CategoryController {
      * @return List of Category objects representing the subcategories.
      * @throws CategoryNotFoundException if the parent category is not found.
      */
-    @GetMapping(value = "api/subcategories/{c_Id}")
-    public List<Category> getSubCategories(@PathVariable int c_Id) {
-        List<Category> subCategories = manager.getSubCategories(c_Id);
-        if (subCategories.isEmpty()) {
-            throw new CategoryNotFoundException("Subcategories not found for category with c_Id: " + c_Id);
-        }
-        return subCategories;
-    }
+//    @GetMapping(value = "api/subcategories/{c_Id}")
+//    public List<Category> getSubCategories(@PathVariable int c_Id) {
+//        List<Category> subCategories = manager.getSubCategories(c_Id);
+//        if (subCategories.isEmpty()) {
+//            throw new CategoryNotFoundException("Subcategories not found for category with c_Id: " + c_Id);
+//        }
+//        return subCategories;
+//    }
 
     /**
      * Removes a category by its ID.
@@ -82,11 +82,12 @@ public class CategoryController {
      * @throws CategoryNotFoundException if the category is not found.
      */
     @DeleteMapping(value = "api/categories/{cid}")
-    public void removeCategory(@PathVariable int cid) {
-        if (!manager.categoryExists(cid)) {
-            throw new CategoryNotFoundException("Category not found with cid: " + cid);
-        }
+    public ResponseEntity<String> removeCategory(@PathVariable int cid) {
+//        if (!manager.categoryExists(cid)) {
+//            throw new CategoryNotFoundException("Category not found with cid: " + cid);
+//        }
         manager.delete(cid);
+        return ResponseEntity.ok("Category removed successfully.");
     }
 
     /**

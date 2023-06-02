@@ -63,9 +63,9 @@ public class ProductController {
      */
     @DeleteMapping(value = "api/products/{pid}")
     public void removeProduct(@PathVariable int pid) {
-        if (!manager.exists(pid)) {
-            throw new ProductNotFoundException("Product not found with ID: " + pid);
-        }
+//        if (!manager.exists(pid)) {
+//            throw new ProductNotFoundException("Product not found with ID: " + pid);
+//        }
         manager.delete(pid);
     }
 
@@ -87,14 +87,14 @@ public class ProductController {
      * @return List of products
      * @throws ProductNotFoundException if no products found for the specified category
      */
-    @GetMapping(value = "api/productsByCat/{cat_Id}")
-    public List<Product> getProductsByCategory(@PathVariable int cat_Id) {
-        List<Product> products = manager.getProductsBySearch(cat_Id);
-        if (products.isEmpty()) {
-            throw new ProductNotFoundException("No products found for category ID: " + cat_Id);
-        }
-        return products;
-    }
+//    @GetMapping(value = "api/productsByCat/{cat_Id}")
+//    public List<Product> getProductsByCategory(@PathVariable int cat_Id) {
+//        List<Product> products = manager.getProductsBySearch(cat_Id);
+//        if (products.isEmpty()) {
+//            throw new ProductNotFoundException("No products found for category ID: " + cat_Id);
+//        }
+//        return products;
+//    }
 
     /**
      * Search products by keyword
@@ -106,9 +106,9 @@ public class ProductController {
     @GetMapping(value = "api/search/{search}")
     public List<Product> searchProducts(@PathVariable String search) {
         List<Product> products = manager.searchProducts(search);
-        if (products.isEmpty()) {
-            throw new ProductNotFoundException("No products found for search keyword: " + search);
-        }
+//        if (products.isEmpty()) {
+//            throw new ProductNotFoundException("No products found for search keyword: " + search);
+//        }
         return products;
     }
 
@@ -118,12 +118,12 @@ public class ProductController {
      * @return List of products
      * @throws ProductNotFoundException if no products found with promotion
      */
-    @GetMapping(value = "api/promotion")
-    public List<Product> getProductsByPromotion() {
-        List<Product> products = manager.getProductsByPromotion();
-        if (products.isEmpty()) {
-            throw new ProductNotFoundException("No products found with promotion");
-        }
-        return products;
-    }
+//    @GetMapping(value = "api/promotion")
+//    public List<Product> getProductsByPromotion() {
+//        List<Product> products = manager.getProductsByPromotion();
+//        if (products.isEmpty()) {
+//            throw new ProductNotFoundException("No products found with promotion");
+//        }
+//        return products;
+//    }
 }

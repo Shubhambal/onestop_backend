@@ -30,13 +30,7 @@ public interface CustomerManager {
 	 */
 	void delete(int customer_Id);
 	
-	/**
-	 * Update the wallet balance of a customer.
-	 * 
-	 * @param customer_Id The ID of the customer.
-	 * @param wallet The new wallet balance.
-	 */
-	void updateWallet(int customer_Id, int wallet);
+	
 	
 	/**
 	 * Get a customer by ID.

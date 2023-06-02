@@ -62,9 +62,9 @@ public class ProductDetailsController {
     @GetMapping(value = "api/productdetails/{p_Id}")
     public List<ProductDetails> getDetails(@PathVariable int p_Id) {
         List<ProductDetails> productDetails = manager.getDetails(p_Id);
-        if (productDetails.isEmpty()) {
-            throw new ProductDetailsNotFoundException("No product details found for product ID: " + p_Id);
-        }
+//        if (productDetails.isEmpty()) {
+//            throw new ProductDetailsNotFoundException("No product details found for product ID: " + p_Id);
+//        }
         return productDetails;
     }
 
@@ -76,9 +76,9 @@ public class ProductDetailsController {
      */
     @DeleteMapping(value = "api/productdetails/{cid}")
     public void delete(@PathVariable int cid) {
-        if (!manager.exists(cid)) {
-            throw new ProductDetailsNotFoundException("Product details not found for ID: " + cid);
-        }
+//        if (!manager.exists(cid)) {
+//            throw new ProductDetailsNotFoundException("Product details not found for ID: " + cid);
+//        }
         manager.delete(cid);
     }
 

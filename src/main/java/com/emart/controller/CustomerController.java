@@ -88,27 +88,7 @@ public class CustomerController {
         }
     }
 
-    /**
-     * Updates a customer's wallet balance by their ID.
-     *
-     * @param customer     The updated Customer object.
-     * @param customer_Id  The ID of the customer to update.
-     * @return ResponseEntity with a success message if the customer is updated successfully,
-     *         or an error message if the customer update fails.
-     */
-    @PutMapping(value = "api/customer/{customer_Id}")
-    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer, @PathVariable int customer_Id) {
-        try {
-            manager.updateWallet(customer_Id, customer.getwallet());
-            return ResponseEntity.ok("Customer updated successfully.");
-        } catch (CustomerNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Customer not found with ID: " + customer_Id);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to update customer: " + e.getMessage());
-        }
-    }
+  
 
     /**
      * Adds a new customer.
@@ -122,7 +102,7 @@ public class CustomerController {
         try {
             manager.addCustomer(customer);
             return ResponseEntity.ok("Customer added successfully.");
-        } catch (Exception e) {
+        } catch (CustomerNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add customer: " + e.getMessage());
         }

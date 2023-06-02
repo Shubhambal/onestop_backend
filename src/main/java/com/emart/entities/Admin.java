@@ -34,7 +34,17 @@ public class Admin {
     @Column(name = "email_id")
     private String emailId;
 
-    /**
+    
+
+	public Admin(String string, String string2, String string3, String string4, String string5) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Admin() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Gets the administrator ID.
      *
      * @return The administrator ID.

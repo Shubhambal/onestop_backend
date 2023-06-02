@@ -62,7 +62,7 @@ public class AdminController {
         try {
             Admin createdAdmin = adminService.createAdmin(admin);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
-        } catch (Exception e) {
+        } catch (AdminNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -75,7 +75,7 @@ public class AdminController {
      * @return ResponseEntity with the updated Admin object if successful,
      *         or a not found response if the admin is not found.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable int id, @RequestBody Admin admin) {
         try {
             Admin updatedAdmin = adminService.updateAdmin(id, admin);
@@ -92,7 +92,7 @@ public class AdminController {
      * @return ResponseEntity with a success message if the admin is deleted successfully,
      *         or a not found response if the admin is not found.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAdmin(@PathVariable int id) {
         try {
             String result = adminService.deleteAdmin(id);

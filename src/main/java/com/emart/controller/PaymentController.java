@@ -44,10 +44,11 @@ public class PaymentController {
      * @throws PaymentNotFoundException if the payment is not found.
      */
     @GetMapping("api/paymentById/{payment_Id}")
-    public Payment getPayment(@PathVariable int payment_Id) {
+    public Optional<Payment> getPayment(@PathVariable int payment_Id) {
         Optional<Payment> payment = manager.getPayment(payment_Id);
-        return payment.orElseThrow(() ->
-                new PaymentNotFoundException("Payment not found with payment ID: " + payment_Id));
+        return payment;
+//        		.orElseThrow(() ->
+//                new PaymentNotFoundException("Payment not found with payment ID: " + payment_Id));
     }
 
     /**
@@ -58,9 +59,9 @@ public class PaymentController {
      */
     @DeleteMapping(value = "api/payment/{payment_Id}")
     public void removePayment(@PathVariable int payment_Id) {
-        if (!manager.exists(payment_Id)) {
-            throw new PaymentNotFoundException("Payment not found with payment ID: " + payment_Id);
-        }
+//        if (!manager.exists(payment_Id)) {
+//            throw new PaymentNotFoundException("Payment not found with payment ID: " + payment_Id);
+//        }
         manager.delete(payment_Id);
     }
 

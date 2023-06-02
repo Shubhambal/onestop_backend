@@ -55,16 +55,7 @@ public class CustomerManagerImpl implements CustomerManager {
 		repository.deleteById(customer_Id); // Delete the customer from the repository based on ID
 	}
 	
-	/**
-	 * Update the wallet balance of a customer.
-	 * 
-	 * @param customer_Id The ID of the customer.
-	 * @param wallet The new wallet balance.
-	 */
-	@Override
-	public void updateWallet(int customer_Id, int wallet) {
-	    repository.updateWallet(wallet, customer_Id); // Update the wallet balance of the customer in the repository
-	}
+	
 	
 	/**
 	 * Get a customer by ID.
