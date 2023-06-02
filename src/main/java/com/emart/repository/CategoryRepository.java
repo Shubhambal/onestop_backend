@@ -12,6 +12,9 @@ import java.util.List;
 
 /**
  * Repository interface for managing Category entities.
+ * @author  Shubham
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 @Repository
 @Transactional

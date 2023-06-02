@@ -10,6 +10,9 @@ import com.emart.entities.Admin;
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
     /**
+      * @author  Sourabh
+      * @version 3.9.10
+      * @since   24-05-2023
      * Find an admin by email.
      *
      * @param emailId The email of the admin to find.

@@ -12,6 +12,9 @@ import java.util.Optional;
 
 /**
  * Repository interface for managing Customer entities.
+  * @author  Sourabh
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 @Repository
 @Transactional
