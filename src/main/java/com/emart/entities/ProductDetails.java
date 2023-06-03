@@ -10,6 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * Represents the product details in the system.
+ * @author  Madhavi
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 @Entity
 @Table(name = "PRODUCTDETAILS")
 public class ProductDetails {

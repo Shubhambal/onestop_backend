@@ -7,6 +7,9 @@ import com.emart.entities.Category;
 
 /**
  * Interface for managing categories.
+ * * @author  Shubham
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 public interface CategoryManager {
 	

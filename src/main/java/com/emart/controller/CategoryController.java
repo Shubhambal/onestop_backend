@@ -20,6 +20,10 @@ import com.emart.services.CategoryManager;
 
 /**
  * The CategoryController class handles the API endpoints related to category operations.
+ * 
+ * @author Shubham
+ * @version 3.9.10
+ * @since 24-05-2023
  */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -32,11 +36,13 @@ public class CategoryController {
      * Retrieves a specific category by its ID.
      *
      * @param cid The ID of the category to retrieve.
-     * @return ResponseEntity with the Category if found,
-     *         or throws CategoryNotFoundException if the category is not found.
+     * @return ResponseEntity with the Category if found, or throws CategoryNotFoundException if the category is not found.
      */
     @GetMapping(value = "api/categoriesById/{cid}")
     public ResponseEntity<Category> getCategory(@PathVariable int cid) {
+        // Logging the API endpoint and parameter
+        System.out.println("GET /api/categoriesById/" + cid);
+
         Optional<Category> category = manager.getCategory(cid);
         return category.map(ResponseEntity::ok).orElseThrow(() ->
                 new CategoryNotFoundException("Category not found with cid: " + cid));
@@ -45,11 +51,13 @@ public class CategoryController {
     /**
      * Retrieves all the categories.
      *
-     * @return ResponseEntity with the list of Category objects if they exist,
-     *         or a no content response if no categories are found.
+     * @return ResponseEntity with the list of Category objects if they exist, or a no content response if no categories are found.
      */
     @GetMapping(value = "api/categories")
     public ResponseEntity<List<Category>> getCategories() {
+        // Logging the API endpoint
+        System.out.println("GET /api/categories");
+
         List<Category> categories = manager.getCategories();
         if (categories.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -67,6 +75,9 @@ public class CategoryController {
      */
     @GetMapping(value = "api/subcategories/{c_Id}")
     public List<Category> getSubCategories(@PathVariable int c_Id) {
+        // Logging the API endpoint and parameter
+        System.out.println("GET /api/subcategories/" + c_Id);
+
         List<Category> subCategories = manager.getSubCategories(c_Id);
         if (subCategories.isEmpty()) {
             throw new CategoryNotFoundException("Subcategories not found for category with c_Id: " + c_Id);
@@ -82,6 +93,9 @@ public class CategoryController {
      */
     @DeleteMapping(value = "api/categories/{cid}")
     public void removeCategory(@PathVariable int cid) {
+        // Logging the API endpoint and parameter
+        System.out.println("DELETE /api/categories/" + cid);
+
         if (!manager.categoryExists(cid)) {
             throw new CategoryNotFoundException("Category not found with cid: " + cid);
         }
@@ -95,6 +109,10 @@ public class CategoryController {
      */
     @PostMapping(value = "api/categories")
     public void addCategory(@RequestBody Category category) {
+        // Logging the API endpoint and request body
+        System.out.println("POST /api/categories");
+        System.out.println("Request Body: " + category);
+
         manager.addCategory(category);
     }
 }

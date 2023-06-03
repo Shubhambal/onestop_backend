@@ -13,6 +13,9 @@ import com.emart.entities.ProductDetails;
 
 /**
  * Repository interface for managing ProductDetails entities.
+ * @author  Madhavi
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 public interface ProductDetailsRepository extends JpaRepository<ProductDetails, Integer> {
 

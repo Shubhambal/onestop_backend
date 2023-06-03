@@ -9,6 +9,9 @@ import com.emart.entities.ProductDetails;
 public interface ProductDetailsManager {
 	
 	/**
+	   * @author  Madhavi
+	   * @version 3.9.10
+	   * @since   24-05-2023
 	 * Add a new product details.
 	 * 
 	 * @param c The product details to be added.
