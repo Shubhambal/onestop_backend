@@ -107,6 +107,7 @@ public class CustomerManagerImpl implements CustomerManager {
 	 * @return An ResponseEntity containing the string, based on customer provide
 	 *         valid username, password or not.
 	 */
+	
 	@Override
 	public ResponseEntity<String> authenticateCustomer(Customer customer) {
 		try {
@@ -114,11 +115,14 @@ public class CustomerManagerImpl implements CustomerManager {
 			if (opCustomer.isPresent()) {
 				Customer dbCustomer = opCustomer.get();
 				if (bCryptPasswordEncoder.matches(customer.getpassword(), dbCustomer.getpassword()))
-					return ResponseEntity.ok("Successfully Logged In.");
+					return ResponseEntity.status(HttpStatus.OK).body("Successfully Logged In.");
+//					return ResponseEntity.ok("Successfully Logged In.");
 				else
-					return ResponseEntity.ok("Wrong Password. Please try again!");
+//					return ResponseEntity.ok("Wrong Password. Please try again!");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong Password. Please try again!");
 			}
-			return ResponseEntity.ok("Customer is not registered yet.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer is not registered yet.");
+//			return ResponseEntity.ok("Customer is not registered yet.");
 		} catch (Exception e) {
 			// Handle the exception here or log it for troubleshooting
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -22,7 +22,7 @@ public class AdminControllerTest {
 
     @Test
     public void testGetAdminById() {
-        int adminId = 4; // Update with an existing admin ID
+        int adminId = 1; // Update with an existing admin ID
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -52,7 +52,7 @@ public class AdminControllerTest {
                 .then()
                 .extract().response();
 
-        Assertions.assertEquals(200, response.getStatusCode());
+        Assertions.assertEquals(201, response.getStatusCode());
         // Add additional assertions to validate the response body or structure
     }
 

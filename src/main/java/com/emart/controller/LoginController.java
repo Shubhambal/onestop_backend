@@ -56,7 +56,6 @@ public class LoginController {
     public ResponseEntity<?> authenticateCustomer(@RequestBody Customer customer) {
         logger.info("POST /login/customer");
         logger.info("Customer: {}", customer);
-
         return ResponseEntity.status(200).body(customerManager.authenticateCustomer(customer));
     }
 }
