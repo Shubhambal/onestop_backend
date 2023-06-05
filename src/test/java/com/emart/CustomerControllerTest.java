@@ -1,5 +1,6 @@
 package com.emart;
 
+
 import com.emart.entities.Customer;
 import com.emart.exception.CustomerNotFoundException;
 import com.emart.services.CustomerManager;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+
 
 public class CustomerControllerTest {
 
@@ -37,7 +39,7 @@ public class CustomerControllerTest {
 	    RestAssured.baseURI = "http://localhost:8080/api/customer";
 
 	    String json = "{\r\n"
-	            + "    \"username\": \"saurabh7nt\",\r\n"
+	            + "    \"username\": \"saurabh8nt\",\r\n"
 	            + "    \"password\": \"Saurabh@123\",\r\n"
 	            + "    \"first_Name\": \"Saurabh\",\r\n"
 	            + "    \"last_Name\": \"Tajane\",\r\n"
@@ -203,7 +205,7 @@ public class CustomerControllerTest {
     public void testRemoveCustomer1() {
 
 		RestAssured.baseURI = "http://localhost:8080/";
-        int validCustomerId = 2;
+        int validCustomerId = 3;
         
         Response response = given()
             .pathParam("customer_Id", validCustomerId)

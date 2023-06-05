@@ -38,7 +38,7 @@ public class AdminControllerTest {
     @Test
     public void testCreateAdmin() {
         Admin admin = new Admin();
-        admin.setUsername("ss");
+        admin.setUsername("sssss");
         admin.setPassword("123");
         admin.setFirstName("shubham");
         admin.setLastName("Bal");
