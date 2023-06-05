@@ -18,6 +18,9 @@ public class ProductManagerImpl implements ProductManager {
 	ProductRepository repository;
 
 	/**
+	  * @author  Devesh
+	  * @version 3.9.10
+	  * @since   24-05-2023
 	 * Add a new product.
 	 *
 	 * @param p The product to be added.

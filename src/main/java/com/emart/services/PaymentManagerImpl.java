@@ -16,6 +16,9 @@ public class PaymentManagerImpl implements PaymentManager {
 	PaymentRepository repository;
 
 	/**
+	  * @author  Sumukh
+	  * @version 3.9.10
+	  * @since   24-05-2023
 	 * Add a new payment.
 	 * 
 	 * @param p The payment to be added.

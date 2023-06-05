@@ -10,6 +10,9 @@ import com.emart.entities.Customer;
 public interface CustomerManager {
 	
 	/**
+	  * @author  Sourabh
+	  * @version 3.9.10
+	  * @since   24-05-2023
 	 * Add a new customer.
 	 * 
 	 * @param c The customer to be added.
@@ -30,13 +33,7 @@ public interface CustomerManager {
 	 */
 	void delete(int customer_Id);
 	
-	/**
-	 * Update the wallet balance of a customer.
-	 * 
-	 * @param customer_Id The ID of the customer.
-	 * @param wallet The new wallet balance.
-	 */
-	void updateWallet(int customer_Id, int wallet);
+	
 	
 	/**
 	 * Get a customer by ID.
