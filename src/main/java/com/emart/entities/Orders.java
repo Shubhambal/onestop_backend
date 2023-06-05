@@ -16,7 +16,7 @@ import javax.persistence.Table;
 /**
  * Represents the orders in the system.
  * @author  Sumukh
- * @version 3.9.10
+ * @version 1.0
  * @since   24-05-2023
  */
 @Entity
