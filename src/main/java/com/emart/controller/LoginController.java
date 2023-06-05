@@ -2,6 +2,7 @@ package com.emart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * The LoginController class handles the API endpoints related to login operations.
  */
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/login")
 public class LoginController {
 
@@ -54,7 +56,6 @@ public class LoginController {
     public ResponseEntity<?> authenticateCustomer(@RequestBody Customer customer) {
         logger.info("POST /login/customer");
         logger.info("Customer: {}", customer);
-
         return ResponseEntity.status(200).body(customerManager.authenticateCustomer(customer));
     }
 }

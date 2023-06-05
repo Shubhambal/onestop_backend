@@ -72,5 +72,12 @@ public interface AdminService {
      */
     void add(Admin admin);
     
+    /**
+	 * Authenticate customer by username and password.
+	 * 
+	 * @param admin details such as username and password .
+	 * @return An ResponseEntity containing the string, based on admin provide
+	 *         valid username, password or not.
+	 */
     ResponseEntity<String> authenticateAdmin(Admin admin);
 }

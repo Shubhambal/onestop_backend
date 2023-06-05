@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.emart.entities.Customer;
 import com.emart.exception.CustomerNotFoundException;
+import com.emart.repository.CustomerRepository;
 import com.emart.services.CustomerManager;
 
 /**
@@ -29,11 +30,14 @@ import com.emart.services.CustomerManager;
  * @since   24-05-2023
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
 
     @Autowired
     CustomerManager manager;
+    
+    @Autowired
+    CustomerRepository customerRepository;
 
     private static final Logger logger = Logger.getLogger(CustomerController.class.getName());
 
@@ -115,7 +119,59 @@ public class CustomerController {
         }
     }
 
-  
+    /**
+     * Updates a customer's wallet balance by their ID.
+     *
+     * @param customer     The updated Customer object.
+     * @param customer_Id  The ID of the customer to update.
+     * @return ResponseEntity with a success message if the customer is updated successfully,
+     *         or an error message if the customer update fails.
+     */
+//    @PutMapping(value = "api/customer/{customer_Id}")
+//    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer, @PathVariable int customer_Id) {
+//        logger.log(Level.INFO, "PUT /api/customer/{customer_Id}");
+//
+//        try {
+//            manager.updateWallet(customer_Id, customer.getwallet());
+//            System.out.println("Customer updated successfully.");
+//            return ResponseEntity.ok("Customer updated successfully.");
+//        } catch (CustomerNotFoundException e) {
+//            logger.log(Level.WARNING, "Customer not found with ID: " + customer_Id);
+//            System.out.println("Customer not found with ID: " + customer_Id);
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body("Customer not found with ID: " + customer_Id);
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "Failed to update customer", e);
+//            System.out.println("Failed to update customer: " + e.getMessage());
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Failed to update customer: " + e.getMessage());
+//        }
+//    }
+    @PutMapping(value = "api/customer/{customer_Id}")
+    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer, @PathVariable int customer_Id) {
+        logger.log(Level.INFO, "PUT /api/customer/{customer_Id}");
+
+        try {
+            // Check if the customer exists
+            if (!customerRepository.existsById(customer_Id)) {
+                logger.log(Level.WARNING, "Customer not found with ID: " + customer_Id);
+                System.out.println("Customer not found with ID: " + customer_Id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Customer not found with ID: " + customer_Id);
+            }
+            
+            // Customer exists, perform the update
+            manager.updateWallet(customer_Id, customer.getwallet());
+            System.out.println("Customer updated successfully.");
+            return ResponseEntity.ok("Customer updated successfully.");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to update customer", e);
+            System.out.println("Failed to update customer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update customer: " + e.getMessage());
+        }
+    }
+
 
     /**
      * Adds a new customer.
@@ -127,12 +183,16 @@ public class CustomerController {
     @PostMapping(value = "api/customer")
     public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
         logger.log(Level.INFO, "POST /api/customer");
-
         try {
-            manager.addCustomer(customer);
-            System.out.println("Customer added successfully: " + customer);
-            return ResponseEntity.ok("Customer added successfully.");
-        } catch (CustomerNotFoundException e) {
+        	String username = customer.getusername();
+			if (manager.isUsernameTaken(username)) {
+				return ResponseEntity.badRequest().body("Username is already taken.");
+			}
+			manager.addCustomer(customer);
+			return ResponseEntity.ok("Customer added successfully.");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to add customer", e);
+            System.out.println("Failed to add customer: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add customer: " + e.getMessage());
         }

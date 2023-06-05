@@ -27,7 +27,7 @@ import com.emart.services.CartManager;
  * Since: 24-05-2023
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CartController {
 
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);

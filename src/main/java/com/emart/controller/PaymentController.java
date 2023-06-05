@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  * Date: 24-05-2023
  */
 @RestController  
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PaymentController {
 
     @Autowired
