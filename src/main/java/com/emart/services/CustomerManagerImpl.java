@@ -98,7 +98,7 @@ public class CustomerManagerImpl implements CustomerManager {
 	 * @return An ResponseEntity containing the string, based on customer provide
 	 *         valid username, password or not.
 	 */
-	
+
 	@Override
 	public ResponseEntity<String> authenticateCustomer(Customer customer) {
 		try {
