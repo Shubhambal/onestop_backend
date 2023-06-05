@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Custom exception to indicate that a cart resource is not found.
+ * @author  Shubham
+ * @version 3.9.10
+ * @since   29-05-2023
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class CartNotFoundException extends RuntimeException {
@@ -53,4 +56,9 @@ public class CartNotFoundException extends RuntimeException {
     public Object getFieldValue() {
         return fieldValue;
     }
+
+	public Object getStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

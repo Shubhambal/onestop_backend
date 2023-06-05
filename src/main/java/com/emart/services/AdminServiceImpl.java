@@ -18,6 +18,9 @@ import com.emart.repository.AdminRepository;
 
 /**
  * Implementation of the AdminService interface.
+ *  * @author  Sourabh
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -161,17 +164,19 @@ public class AdminServiceImpl implements AdminService {
 	 *         valid username, password or not.
 	 */
     @Override
-	public ResponseEntity<String> authenticateAdmin(Admin admin) {
+    public ResponseEntity<String> authenticateAdmin(Admin admin) {
 		try {
 			Optional<Admin> opAdmin = Optional.ofNullable(adminRepository.findByUsername(admin.getUsername()));
 			if (opAdmin.isPresent()) {
 				Admin dbAdmin = opAdmin.get();
 				if (bCryptPasswordEncoder.matches(admin.getPassword(), dbAdmin.getPassword()))
-					return ResponseEntity.ok("Successfully Logged In.");
+					return ResponseEntity.status(HttpStatus.OK).body("Successfully Logged In.");
 				else
-					return ResponseEntity.ok("Wrong Password. Please try again!");
+//					return ResponseEntity.ok("Wrong Password. Please try again!");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong Password. Please try again!");
 			}
-			return ResponseEntity.ok("Admin is not registered yet.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Admin is not registered yet.");
+//			return ResponseEntity.ok("Admin is not registered yet.");
 		} catch (Exception e) {
 			// Handle the exception here or log it for troubleshooting
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

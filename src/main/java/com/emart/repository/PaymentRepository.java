@@ -13,6 +13,9 @@ import com.emart.entities.Payment;
 
 /**
  * Repository interface for managing Payment entities.
+ * @author  Sumukh
+ * @version 3.9.10
+ * @since   24-05-2023
  */
 @Repository
 @Transactional

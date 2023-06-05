@@ -3,11 +3,16 @@ package com.emart.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
+
 import com.emart.entities.Orders;
 
 public interface OrdersManager {
 	
 	/**
+	 *  * @author  Sumukh
+	 * @version 3.9.10
+	 * @since   24-05-2023
 	 * Add an order.
 	 * 
 	 * @param order The order to be added.

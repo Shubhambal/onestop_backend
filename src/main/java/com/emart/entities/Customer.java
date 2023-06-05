@@ -1,10 +1,14 @@
 package com.emart.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 /**
  * Represents the customers in the system.
@@ -12,6 +16,7 @@ import javax.persistence.Table;
  * @version 3.9.10
  * @since   24-05-2023
  */
+
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -23,7 +28,7 @@ public class Customer {
         super();
     }
     
-    private int customer_Id;
+    private int id;
     private String username;
     private String password;
     private boolean prime_Customer;
@@ -32,6 +37,8 @@ public class Customer {
     private String last_Name;
     private String email_Id;
     private String address;
+    
+	
     
     /**
      * Parameterized constructor for the Customer class.
@@ -47,19 +54,7 @@ public class Customer {
      * @param address         The address.
      */
     
-    public Customer(int customer_Id, String username, String password, boolean prime_Customer, int wallet,
-            String first_Name, String last_Name, String email_Id, String address) {
-        super();
-        this.customer_Id = customer_Id;
-        this.username = username;
-        this.password = password;
-        this.prime_Customer = prime_Customer;
-        this.wallet = wallet;
-        this.first_Name = first_Name;
-        this.last_Name = last_Name;
-        this.email_Id = email_Id;
-        this.address = address;
-    }
+    
     
     /**
      * Get the customer ID.
@@ -69,16 +64,31 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getcustomer_Id() {
-        return customer_Id;
+        return id;
     }
     
-    /**
+    public Customer(int customer_Id, String username, String password, boolean prime_Customer, int wallet,
+			String first_Name, String last_Name, String email_Id, String address) {
+		super();
+		this.id = customer_Id;
+		this.username = username;
+		this.password = password;
+		this.prime_Customer = prime_Customer;
+		this.wallet = wallet;
+		this.first_Name = first_Name;
+		this.last_Name = last_Name;
+		this.email_Id = email_Id;
+		this.address = address;
+		
+	}
+
+	/**
      * Set the customer ID.
      *
      * @param customer_Id The customer ID to set.
      */
     public void setcustomer_Id(int customer_Id) {
-        this.customer_Id = customer_Id;
+        this.id = customer_Id;
     }
     
     /**
@@ -225,10 +235,17 @@ public class Customer {
         this.address = address;
     }
     
-    @Override
-    public String toString() {
-        return "Customer [CustomerID=" + customer_Id + ", Username=" + username + ", Password=" + password
-            + ", PrimeCustomer=" + prime_Customer + ", Wallet=" + wallet + ", FirstName=" + first_Name
-            + ", LastName=" + last_Name + ", EmailId=" + email_Id + ", Address=" + address + "]";
-    }
+    
+    
+   
+
+	@Override
+	public String toString() {
+		return "Customer [customer_Id=" + id + ", username=" + username + ", password=" + password
+				+ ", prime_Customer=" + prime_Customer + ", wallet=" + wallet + ", first_Name=" + first_Name
+				+ ", last_Name=" + last_Name + ", email_Id=" + email_Id + ", address=" + address + ", historyList="
+				+  "]";
+	}
+
+	
 }
