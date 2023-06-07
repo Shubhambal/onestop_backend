@@ -35,4 +35,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Object> getByUserName(@Param("user") String user);
     
     Customer findByUsername(String username);
+    
+    @Modifying
+    @Query("update Customer c set c.wallet = :wallet where c.customer_Id = :customer_Id")
+    void updateWallet(@Param("wallet") int wallet, @Param("customer_Id") int customer_Id);
 }
