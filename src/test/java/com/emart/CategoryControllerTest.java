@@ -17,10 +17,15 @@ public class CategoryControllerTest {
     public static void setup() {
         RestAssured.baseURI = "http://localhost:8080"; // Update the base URL to match your application's URL
     }
-
+    
+    /**
+	 * The test scenario aims to retrieve the categories successfully  by sending a GET request to the specified endpoint with valid category Id.
+	 * 
+	 * @return 200 status code will be returned.
+	 */
     @Test
-    public void testGetCategory() {
-        int categoryId = 1; // Update with an existing category ID
+    public void testGetCategory1() {
+        int categoryId = 4; 											// Update with an existing category ID
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -28,11 +33,40 @@ public class CategoryControllerTest {
                 .get("/api/categoriesById/" + categoryId)
                 .then()
                 .extract().response();
-
+        
+        
+        System.out.println(response.asPrettyString());
         Assertions.assertEquals(200, response.getStatusCode());
-        // Add additional assertions to validate the response body or structure
-    }
 
+    }
+    
+    /**
+	 * The test scenario aims to handles the method when  Invalid category Id is sent.
+	 * 
+	 * @return 404 status code will be returned.
+	 */
+    @Test
+    public void testGetCategory2() {
+        int categoryId = 999; 								// Update with an non existing category ID
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/api/categoriesById/" + categoryId)
+                .then()
+                .extract().response();
+        
+        
+        System.out.println(response.asPrettyString());
+        Assertions.assertEquals(404, response.getStatusCode());
+       
+    }
+    
+    /**
+	 * This test ensures to retrive all the categories when sent an GET request at specific endpoint.
+	 * 
+	 * @return 200 status code will be returned.
+	 */
     @Test
     public void testGetCategories() {
         Response response = given()
@@ -41,7 +75,8 @@ public class CategoryControllerTest {
                 .get("/api/categories")
                 .then()
                 .extract().response();
-
+        
+        System.out.println(response.asPrettyString());
         Assertions.assertEquals(200, response.getStatusCode());
         // Add additional assertions to validate the response body or structure
     }
@@ -60,10 +95,15 @@ public class CategoryControllerTest {
 //        Assertions.assertEquals(200, response.getStatusCode());
 //        // Add additional assertions to validate the response body or structure
 //    }
-
+    
+    /**
+	 * The test scenario aims to delete the categories successfully  by sending a DELETE request to the specified endpoint with valid category Id.
+	 * 
+	 * @return 200 status code will be returned.
+	 */
     @Test
     public void testRemoveCategory() {
-        int category_Id = 9; // Update with an existing category ID
+        int category_Id = 5; // Update with an existing category ID
 
         Response response = given()
                 .contentType(ContentType.JSON)

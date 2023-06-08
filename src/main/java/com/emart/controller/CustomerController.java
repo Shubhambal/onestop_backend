@@ -103,9 +103,14 @@ public class CustomerController {
         logger.log(Level.INFO, "DELETE /api/customer/{customer_Id}");
 
         try {
+            Optional<Customer> customer = manager.getCustomer(customer_Id);
+            if (customer.isPresent()) {
             manager.delete(customer_Id);
             System.out.println("Customer deleted successfully.");
             return ResponseEntity.ok("Customer deleted successfully.");
+            } else {
+                throw new CustomerNotFoundException("Customer not found with ID: " + customer_Id);
+            }
         } catch (CustomerNotFoundException e) {
             logger.log(Level.WARNING, "Customer not found with ID: " + customer_Id);
             System.out.println("Customer not found with ID: " + customer_Id);

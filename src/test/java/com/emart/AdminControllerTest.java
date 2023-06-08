@@ -45,9 +45,9 @@ public class AdminControllerTest {
     @Test
     public void testCreateAdmin() {
         Admin admin = new Admin();
-        admin.setUsername("ss3");
-        admin.setPassword("123");
-        admin.setFirstName("shubham");
+        admin.setUsername("adminshubham");
+        admin.setPassword("Admin@123");
+        admin.setFirstName("Shubham");
         admin.setLastName("Bal");
         admin.setEmailId("shubham@gmail.com");
 
@@ -78,16 +78,11 @@ public class AdminControllerTest {
     }
 
 
- @Test
- public void testUpdateAdmin() {
-     int adminId = 35; // Update with an existing admin ID
-     Admin admin = new Admin();
-     // Set the updated properties of the Admin object
-     admin.setUsername("abcd2");
-     admin.setPassword("1234");
-     admin.setFirstName("shubham1");
-     admin.setLastName("Bal");
-     admin.setEmailId("shubham@gmail.com");
+    @Test
+    public void testUpdateAdmin() {
+        int adminId = 1; // Update with an existing admin ID
+        Admin admin = new Admin();
+        // Set the updated properties of the Admin object
 
      Response response = given()
              .contentType(ContentType.JSON)
@@ -107,7 +102,7 @@ public class AdminControllerTest {
 
     @Test
     public void testDeleteAdmin() {
-        int adminId = 26; // Update with an existing admin ID
+        int adminId = 1; // Update with an existing admin ID
 
         Response response = given()
                 .contentType(ContentType.JSON)

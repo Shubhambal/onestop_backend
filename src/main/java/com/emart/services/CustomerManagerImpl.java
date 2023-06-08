@@ -121,4 +121,15 @@ public class CustomerManagerImpl implements CustomerManager {
 		}
 	}
 	
+	/**
+	 * Update the wallet balance of a customer.
+	 * 
+	 * @param customer_Id The ID of the customer.
+	 * @param wallet The new wallet balance.
+	 */
+	@Override
+	public void updateWallet(int customer_Id, int wallet) {
+	    repository.updateWallet(wallet, customer_Id); // Update the wallet balance of the customer in the repository
+	}
+	
 }

@@ -68,4 +68,6 @@ public interface CustomerManager {
 	 * @param c The customer to be added.
 	 */
 	boolean isUsernameTaken(String username);
+
+	void updateWallet(int customer_Id, int getwallet);
 }
