@@ -9,7 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
+/**
+ * Represents the customers in the system.
+ * @author  Sourabh
+ * @version 3.9.10
+ * @since   24-05-2023
+ */
 
 @Entity
 @Table(name = "customer")

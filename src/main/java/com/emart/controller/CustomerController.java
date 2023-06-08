@@ -186,15 +186,18 @@ public class CustomerController {
      *         or an error message if the customer addition fails.
      */
     @PostMapping(value = "api/customer")
+
     public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
         logger.log(Level.INFO, "POST /api/customer");
         try {
         	String username = customer.getusername();
+
 			if (manager.isUsernameTaken(username)) {
 				return ResponseEntity.badRequest().body("Username is already taken.");
 			}
 			manager.addCustomer(customer);
 			return ResponseEntity.ok("Customer added successfully.");
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Failed to add customer", e);
             System.out.println("Failed to add customer: " + e.getMessage());
@@ -202,6 +205,7 @@ public class CustomerController {
                     .body("Failed to add customer: " + e.getMessage());
         }
     }
+
 
     /**
      * Retrieves a customer by their username.
