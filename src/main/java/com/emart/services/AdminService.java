@@ -80,4 +80,6 @@ public interface AdminService {
 	 *         valid username, password or not.
 	 */
     ResponseEntity<String> authenticateAdmin(Admin admin);
+
+	List<Admin> getAllAdmins();
 }

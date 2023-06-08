@@ -183,4 +183,11 @@ public class AdminServiceImpl implements AdminService {
 					.body("An error occurred during authentication.");
 		}
 	}
+
+	
+	
+	 @Override
+	    public List<Admin> getAllAdmins() {
+	        return adminRepository.findAll();
+	    }
 }

@@ -18,6 +18,7 @@ import com.emart.entities.Admin;
 import com.emart.exception.AdminNotFoundException;
 import com.emart.services.AdminService;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
  */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/admins")
+@RequestMapping("/api/admins")
 public class AdminController {
 
 	private final AdminService adminService;
@@ -43,6 +44,12 @@ public class AdminController {
 
 	private static final Logger logger = Logger.getLogger(AdminController.class.getName());
 
+	
+	
+	 @GetMapping
+	    public List<Admin> showAllAdmins() {
+	        return adminService.getAllAdmins();
+	    }
 	/**
 	 * Get an admin by ID.
 	 *
@@ -128,14 +135,14 @@ public class AdminController {
 		}
 	}
 
-//Admin registration
-	@PostMapping("/adminRegister")
-	public void adminRegister(@RequestBody Admin admin) {
-		logger.log(Level.INFO, "POST /admins/adminRegister");
-
-		// Add admin to the database
-		adminService.add(admin);
-	}
+////Admin registration
+//	@PostMapping("/adminRegister")
+//	public void adminRegister(@RequestBody Admin admin) {
+//		logger.log(Level.INFO, "POST /admins/adminRegister");
+//
+//		// Add admin to the database
+//		adminService.add(admin);
+//	}
 
 //Checking BCrypt password
 //Parameters:
