@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * operations.
  * 
  * @author Sourabh
- * @version 3.9.10
+ * @version 1.0
  * @since 24-05-2023
  */
 @RestController
@@ -56,8 +56,9 @@ public class AdminController {
 
 		try {
 			Admin admin = adminService.getAdminById(id);
-			logger.log(Level.INFO, "Admin found: " + admin);
+			logger.log(Level.INFO, "Admin Retrived successfully: " + admin);
 			return ResponseEntity.ok(admin);
+//			return ResponseEntity.status(200).body(admin).ok("Admin Retrived successfully");
 		} catch (AdminNotFoundException e) {
 			logger.log(Level.WARNING, "Admin not found with ID: " + id);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -73,17 +74,23 @@ public class AdminController {
 	 */
 	@PostMapping("/create")
 	public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
-		logger.log(Level.INFO, "POST /admins/create");
+	    logger.log(Level.INFO, "POST /admins/create");
 
-		try {
-			Admin createdAdmin = adminService.createAdmin(admin);
-			logger.log(Level.INFO, "Admin created successfully: " + createdAdmin);
-			return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Failed to create admin", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
+	    try {
+	        Admin createdAdmin = adminService.createAdmin(admin);
+//	        logger.log(Level.INFO, "Admin created successfully: " + createdAdmin);
+//	        return ResponseEntity.status(200).body(createdAdmin);
+	        logger.log(Level.INFO, "Admin created successfully: " + admin);
+			return ResponseEntity.ok(admin);
+//	        return ResponseEntity.status(200).body(createdAdmin).ok("Admin created successfully");
+	    } catch (Exception e) {
+	        logger.log(Level.SEVERE, "Failed to create admin", e);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(null);
+	    }
 	}
+
+
 
 	/**
 	 * Update an existing admin.
@@ -120,8 +127,10 @@ public class AdminController {
 
 		try {
 			adminService.deleteAdmin(id);
-			logger.log(Level.INFO, "Admin deleted successfully with ID: " + id);
-			return ResponseEntity.ok("Admin deleted successfully");
+			logger.log(Level.INFO, "Admin deleted successfully: " + id);
+			return ResponseEntity.ok("Admin deleted successfully.");
+//			logger.log(Level.INFO, "Admin deleted successfully with ID: " + id);
+//			return ResponseEntity.ok("Admin deleted successfully");
 		} catch (AdminNotFoundException e) {
 			logger.log(Level.WARNING, "Admin not found with ID: " + id);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

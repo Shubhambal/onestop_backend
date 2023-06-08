@@ -112,6 +112,11 @@ public class ProductManagerImpl implements ProductManager {
 	 */
 	@Override
 	public boolean exists(int pid) {
-		return false;
+		if(repository.existsById(pid)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

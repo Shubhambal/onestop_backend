@@ -161,7 +161,7 @@ public class CustomerController {
             }
             
             // Customer exists, perform the update
-            manager.updateWallet(customer_Id, customer.getwallet());
+           // manager.updateWallet(customer_Id, customer.getwallet());
             System.out.println("Customer updated successfully.");
             return ResponseEntity.ok("Customer updated successfully.");
         } catch (Exception e) {

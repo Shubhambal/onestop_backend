@@ -1,21 +1,17 @@
 package com.emart;
 
-import com.emart.entities.Customer;
-import com.emart.exception.CustomerNotFoundException;
-import com.emart.services.CustomerManager;
+
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import com.emart.entities.Customer;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+
 
 public class CustomerControllerTest {
 
@@ -203,7 +199,7 @@ public class CustomerControllerTest {
     public void testRemoveCustomer1() {
 
 		RestAssured.baseURI = "http://localhost:8080/";
-        int validCustomerId = 2;
+        int validCustomerId = 3;
         
         Response response = given()
             .pathParam("customer_Id", validCustomerId)

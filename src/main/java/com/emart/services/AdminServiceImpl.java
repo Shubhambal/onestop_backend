@@ -58,8 +58,13 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public Admin createAdmin(Admin admin) {
+    	try {
     	admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         return adminRepository.save(admin);
+    	}
+    	catch (Exception e) {
+            return null;
+        }
     }
 
     /**
