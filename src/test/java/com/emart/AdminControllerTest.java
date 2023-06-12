@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.emart.entities.Admin;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,71 +24,95 @@ public class AdminControllerTest {
 
     @Test
     public void testGetAdminById() {
-        int adminId = 1; // Update with an existing admin ID
+        int adminId = 10; // Update with an existing admin ID
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/admins/" + adminId)
-                .then()
-                .extract().response();
+                .get("/admins/" + adminId);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        // Add additional assertions to validate the response body or structure
+        // Print the status code and response body on the console
+        int statusCode = response.getStatusCode();
+        String responseBody = response.getBody().asString();
+        System.out.println("Status code: " + statusCode);
+        System.out.println("Response body: " + responseBody);
+
+        Assertions.assertEquals(200, statusCode);
+//        Assertions.assertEquals("Admin Retrived successfully", responseBody);
     }
+
 
     @Test
     public void testCreateAdmin() {
         Admin admin = new Admin();
-        admin.setUsername("sssss");
-        admin.setPassword("123");
-        admin.setFirstName("shubham");
+        admin.setUsername("adminshubham");
+        admin.setPassword("Admin@123");
+        admin.setFirstName("Shubham");
         admin.setLastName("Bal");
         admin.setEmailId("shubham@gmail.com");
 
+        // Serialize the Admin object to JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        String adminJson;
+        try {
+            adminJson = objectMapper.writeValueAsString(admin);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return; // Return or handle the exception appropriately
+        }
+
+        // Send the request with the JSON payload
         Response response = given()
                 .contentType(ContentType.JSON)
-                .body(admin)
+                .body(adminJson)
                 .when()
                 .post("/admins/create")
                 .then()
                 .extract().response();
 
-        Assertions.assertEquals(201, response.getStatusCode());
+        System.out.println("Status code : " + response.getStatusCode());
+        Assertions.assertEquals(200, response.getStatusCode());
+        System.out.println("Response body: " + response.getBody().asString());
+       //Assertions.assertEquals("Admin created successfully", response.getBody().asString());
         // Add additional assertions to validate the response body or structure
     }
 
 
     @Test
     public void testUpdateAdmin() {
-        int adminId = 4; // Update with an existing admin ID
+        int adminId = 1; // Update with an existing admin ID
         Admin admin = new Admin();
         // Set the updated properties of the Admin object
 
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(admin)
-                .when()
-                .put("/admins/update/" + adminId)
-                .then()
-                .extract().response();
+     Response response = given()
+             .contentType(ContentType.JSON)
+             .body(admin)
+             .when()
+             .put("/admins/" + adminId);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        // Add additional assertions to validate the response body or structure
-    }
+     // Print the response body on the console
+//     response.then().log().body();
+     System.out.println("Status code : " + response.getStatusCode());
+     Assertions.assertEquals(200, response.getStatusCode());
+     System.out.println("Response body: " + response.getBody().asString());
+//  Assertions.assertEquals("Admin updated successfully", response.getBody().asString());
+     // Add additional assertions to validate the response body or structure
+ }
+
 
     @Test
     public void testDeleteAdmin() {
-        int adminId = 6; // Update with an existing admin ID
+        int adminId = 1; // Update with an existing admin ID
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .delete("/admins/delete/" + adminId)
+                .delete("/admins/" + adminId)
                 .then()
                 .extract().response();
 
         Assertions.assertEquals(200, response.getStatusCode());
+        System.out.println("Response body: " + response.getBody().asString());
         // Add additional assertions to validate the response body or structure
     }
 

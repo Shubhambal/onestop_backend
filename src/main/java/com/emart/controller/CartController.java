@@ -23,7 +23,7 @@ import com.emart.services.CartManager;
 /**
  * The CartController class handles the API endpoints related to cart operations.
  * Author: Shubham
- * Version: 3.9.10
+ * Version: 1.0
  * Since: 24-05-2023
  */
 @RestController

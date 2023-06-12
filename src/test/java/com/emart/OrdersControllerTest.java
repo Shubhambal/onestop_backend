@@ -53,7 +53,7 @@ public class OrdersControllerTest {
 
     @Test
     public void testGetOrderById() {
-        int orderId = 4; // Provide a valid order ID
+        int orderId = 1; // Provide a valid order ID
         
         // Send a GET request to retrieve a specific order by ID
         Response response = given()
@@ -70,7 +70,7 @@ public class OrdersControllerTest {
 
     @Test
     public void testDeleteOrder() {
-        int orderId = 5; // Provide a valid order ID
+        int orderId = 2; // Provide a valid order ID
 //        orderId =2;
         // Send a DELETE request to remove a specific order by ID
         Response response = given()
